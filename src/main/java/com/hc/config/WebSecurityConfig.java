@@ -33,19 +33,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         //允许所有用户访问”/”和”/demo”和静态资源
         http.authorizeRequests()
-                .antMatchers("/", "/demo", "/**/*.css", "/**/*.js", "/image/**", "/admin/login.html").permitAll()
+                .antMatchers("/", "/demo", "/login", "/**/*.css", "/**/*.js", "/image/**", "/admin/**").permitAll()
                 //其他地址的访问均需验证权限
-                .anyRequest().authenticated().and().formLogin()
+                .anyRequest().authenticated()
+                .and().formLogin()
                 //指定登录页是”/login”
                 .loginPage("/admin/login.html")
-                .failureUrl("/login?error")
+//                .failureUrl("/login?error")
+                .usernameParameter("username").passwordParameter("password")
                 .permitAll()
                 //登录成功后可使用loginSuccessHandler()存储用户信息，可选。   
 //              .successHandler(loginSuccessHandler())
                 .and().logout()
                 //退出登录后的默认网址是"/"
                 .logoutSuccessUrl("/").permitAll()
-                .invalidateHttpSession(true);
+                .invalidateHttpSession(true)
+                .and().csrf().disable();
 //                .and()
 ////        登录后记住用户，下次自动登录 
 ////        数据库中必须存在名为persistent_logins的表 
@@ -56,6 +59,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication().dataSource(this.dataSource);
+        auth.jdbcAuthentication().dataSource(this.dataSource)
+                .usersByUsernameQuery("select username, password, enabled from tb_user where username=?")
+                .authoritiesByUsernameQuery("select username, authority from tb_authorities where username=?");
     }
 }

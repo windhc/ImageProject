@@ -19,6 +19,9 @@ public class Atlas {
     @Column(nullable = false)
     private String atlas;
 
+    @Column(nullable = false)
+    private String addtime;
+
     @ManyToOne
     @JoinColumn(name = "tag_id")
     private Tag tag;
@@ -28,7 +31,7 @@ public class Atlas {
     private PicType picType;
 
     @OneToMany(mappedBy="atlas") //mappedBy 由Picture中的atlas来维护级联关系
-    private List<Picture> pictures = new ArrayList<Picture>();
+    private List<Picture> pictures = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -60,5 +63,21 @@ public class Atlas {
 
     public void setPicType(PicType picType) {
         this.picType = picType;
+    }
+
+    public String getAddtime() {
+        return addtime;
+    }
+
+    public void setAddtime(String addtime) {
+        this.addtime = addtime;
+    }
+
+    public List<Picture> getPictures() {
+        return pictures;
+    }
+
+    public void setPictures(List<Picture> pictures) {
+        this.pictures = pictures;
     }
 }
