@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         //允许所有用户访问”/”和”/demo”和静态资源
         http.authorizeRequests()
-                .antMatchers("/", "/demo", "/login", "/**/*.css", "/**/*.js", "/image/**", "/admin/**").permitAll()
+                .antMatchers("/**", "/demo", "/login", "/**/*.css", "/**/*.js", "/image/**", "/admin/**").permitAll()
                 //其他地址的访问均需验证权限
                 .anyRequest().authenticated()
                 .and().formLogin()

@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class Authority {
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
 
     @Column(nullable = false)
     private String username;
@@ -19,11 +19,11 @@ public class Authority {
     @Column(nullable = false)
     private String authority;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

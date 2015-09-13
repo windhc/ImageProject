@@ -15,7 +15,6 @@
 
     <!-- Bootstrap core CSS -->
     <link href="/vendor/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Custom styles for this template -->
     <link href="/css/dashboard.css" rel="stylesheet">
 
@@ -26,7 +25,7 @@
     <!--[endif]-->
 </head>
 
-<body>
+<body ng-app="ImageAdminApp">
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
@@ -58,8 +57,8 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar text-center">
-                <li class="active"><a href="#">图册列表 <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">图册新增</a></li>
+                <li class="active"><a href="#/index">图册列表 <span class="sr-only">(current)</span></a></li>
+                <li><a href="#/add">图册新增</a></li>
             </ul>
             <ul class="nav nav-sidebar text-center">
                 <li><a href="">标签管理</a></li>
@@ -78,58 +77,7 @@
             </ul>
         </div>
 
-        <div ng-view class="view-animate"></div>
-
-<!--
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="sub-header">所有图片</h1>
-
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>图册名称</th>
-                        <th>图片数量</th>
-                        <th>标签</th>
-                        <th>分类</th>
-                        <th>添加时间</th>
-                        <th>操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>1,001</td>
-                        <td>Lorem</td>
-                        <td>ipsum</td>
-                        <td>标签1</td>
-                        <td>分类1</td>
-                        <td>dolor</td>
-                        <td>sit</td>
-                    </tr>
-                    <tr>
-                        <td>1,002</td>
-                        <td>amet</td>
-                        <td>consectetur</td>
-                        <td>标签1</td>
-                        <td>分类1</td>
-                        <td>adipiscing</td>
-                        <td>elit</td>
-                    </tr>
-                    <tr>
-                        <td>1,003</td>
-                        <td>Integer</td>
-                        <td>nec</td>
-                        <td>标签1</td>
-                        <td>分类1</td>
-                        <td>odio</td>
-                        <td>Praesent</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
--->
+        <div ng-view class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"></div>
 
     </div>
 </div>
@@ -138,11 +86,25 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="/vendor/jquery.min.js"></script>
+<script src="/vendor/angular-1.3.15/angular.min.js"></script>
+<script src="/vendor/angular-1.3.15/angular-route.min.js"></script>
+<script src="/vendor/angular-1.3.15/angular-animate.min.js"></script>
+<script src="/vendor/angular-1.3.15/angular-resource.min.js"></script>
+<script src="/vendor/angular-1.3.15/angular-mocks.js"></script>
 <script src="/vendor/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
 <script src="/javascript/utils/holder.min.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="/javascript/utils/ie10-viewport-bug-workaround.js"></script>
+
+<!--<script src="//cdn.bootcss.com/ng-grid/2.0.11/ng-grid.min.js"></script>-->
+<!--<link href="//cdn.bootcss.com/ng-grid/2.0.11/ng-grid.min.css" rel="stylesheet">-->
+
+<script src="/vendor/ng-table/ng-table.min.js"></script>
+<link href="/vendor/ng-table/ng-table.min.css" rel="stylesheet">
+
+<script src="/javascript/module/admin.js"></script>
+<script src="/javascript/module/admin-picture.js"></script>
 
 </body>
 </html>

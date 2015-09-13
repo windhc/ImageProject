@@ -12,7 +12,7 @@ public class Picture {
 
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
 
     @Column(nullable = false)
     private String picpath;
@@ -24,11 +24,15 @@ public class Picture {
     @JoinColumn(name = "atlas_id")
     private Atlas atlas;
 
-    public int getId() {
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -54,5 +58,13 @@ public class Picture {
 
     public void setAtlas(Atlas atlas) {
         this.atlas = atlas;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

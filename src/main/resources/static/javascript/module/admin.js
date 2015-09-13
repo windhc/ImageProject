@@ -1,17 +1,27 @@
 /**
  * Created by Administrator on 2015/8/8.
  */
-angular.module('admin', ['main', 'admin.User'])
-    .config(['$routeProvider', function($routeProvider) {
-        $routeProvider
-            .when('/user/:type', {
-                templateUrl: 'res/admin/user/index.html',
-                controller: 'UserController'
-            }).when('/producer', {
-                templateUrl: 'res/admin/producer/index.html',
-                controller: 'ProducerController'
-            }).when('/backup', {
-                templateUrl: 'res/admin/backup/index.html',
-                controller: 'BackupController'
-            }).otherwise({ redirectTo: '/user/0'});
+var ImageAdminApp = angular.module('ImageAdminApp', [
+    'ngRoute', 'admin.Picture'
+]);
+
+ImageAdminApp.config(['$routeProvider', function($routeProvider) {
+        $routeProvider.when('/index', {
+                templateUrl: '/module/picture/index.html',
+                controller: 'PictureCtrl'
+            })
+            .when('/add', {
+                templateUrl: '/module/picture/add.html',
+                controller: 'PictureAddCtrl'
+            }).otherwise({ redirectTo: '/index'});
     }]);
+
+ImageAdminApp.service('UserService', [
+    '$http', function($http) {
+        return {
+            getPage: function() {
+                return $http.post("/picture/picturePage");
+            }
+        };
+    }
+]);

@@ -1,8 +1,6 @@
 package com.hc.domain;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 图册标签
@@ -13,7 +11,7 @@ import java.util.List;
 public class Tag {
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
 
     @Column(nullable = false)
     private String tag;
@@ -22,14 +20,14 @@ public class Tag {
     @JoinColumn(name = "pictype_id")
     private PicType picType;
 
-    @OneToMany(mappedBy="tag") //mappedBy 由Atlas中的tag来维护级联关系
-    private List<Atlas> atlases = new ArrayList<Atlas>();
+//    @OneToMany(fetch = FetchType.LAZY,mappedBy="tag") //mappedBy 由Atlas中的tag来维护级联关系
+//    private Set<Atlas> atlases;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -49,11 +47,11 @@ public class Tag {
         this.picType = picType;
     }
 
-    public List<Atlas> getAtlases() {
-        return atlases;
-    }
-
-    public void setAtlases(List<Atlas> atlases) {
-        this.atlases = atlases;
-    }
+//    public Set<Atlas> getAtlases() {
+//        return atlases;
+//    }
+//
+//    public void setAtlases(Set<Atlas> atlases) {
+//        this.atlases = atlases;
+//    }
 }

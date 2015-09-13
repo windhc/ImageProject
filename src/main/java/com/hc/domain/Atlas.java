@@ -1,8 +1,6 @@
 package com.hc.domain;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 图册
@@ -14,7 +12,7 @@ public class Atlas {
 
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
 
     @Column(nullable = false)
     private String atlas;
@@ -22,22 +20,18 @@ public class Atlas {
     @Column(nullable = false)
     private String addtime;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "tag_id")
     private Tag tag;
 
-    @ManyToOne
-    @JoinColumn(name = "pictype_id")
-    private PicType picType;
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy="atlas") //mappedBy 由Picture中的atlas来维护级联关系
+//    private Set<Picture> pictures;
 
-    @OneToMany(mappedBy="atlas") //mappedBy 由Picture中的atlas来维护级联关系
-    private List<Picture> pictures = new ArrayList<>();
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -57,14 +51,6 @@ public class Atlas {
         this.tag = tag;
     }
 
-    public PicType getPicType() {
-        return picType;
-    }
-
-    public void setPicType(PicType picType) {
-        this.picType = picType;
-    }
-
     public String getAddtime() {
         return addtime;
     }
@@ -73,11 +59,11 @@ public class Atlas {
         this.addtime = addtime;
     }
 
-    public List<Picture> getPictures() {
-        return pictures;
-    }
-
-    public void setPictures(List<Picture> pictures) {
-        this.pictures = pictures;
-    }
+//    public Set<Picture> getPictures() {
+//        return pictures;
+//    }
+//
+//    public void setPictures(Set<Picture> pictures) {
+//        this.pictures = pictures;
+//    }
 }

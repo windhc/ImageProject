@@ -1,8 +1,6 @@
 package com.hc.domain;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 图片类型
@@ -13,22 +11,19 @@ import java.util.List;
 public class PicType {
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
 
     @Column(nullable = false)
     private String pictype;
 
-    @OneToMany(mappedBy="picType") //mappedBy 由Tag中的picType来维护级联关系
-    private List<Tag> tags = new ArrayList<Tag>();
+//    @OneToMany(fetch = FetchType.LAZY,mappedBy="picType") //mappedBy 由Tag中的picType来维护级联关系
+//    private Set<Tag> tags;
 
-    @OneToMany(mappedBy="picType") //mappedBy 由Atlas中的picType来维护级联关系
-    private List<Atlas> atlases = new ArrayList<Atlas>();
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -40,19 +35,11 @@ public class PicType {
         this.pictype = pictype;
     }
 
-    public List<Tag> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<Tag> tags) {
-        this.tags = tags;
-    }
-
-    public List<Atlas> getAtlases() {
-        return atlases;
-    }
-
-    public void setAtlases(List<Atlas> atlases) {
-        this.atlases = atlases;
-    }
+//    public Set<Tag> getTags() {
+//        return tags;
+//    }
+//
+//    public void setTags(Set<Tag> tags) {
+//        this.tags = tags;
+//    }
 }

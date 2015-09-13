@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class User {
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
 
     @Column(nullable = false)
     private String username;
@@ -31,11 +31,14 @@ public class User {
     @Column(nullable = false)
     private boolean enabled;
 
-    public int getId() {
+//    @OneToMany(mappedBy="user") //mappedBy 由Picture中的user来维护级联关系
+//    private List<Picture> pictures = new ArrayList<>();
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -94,4 +97,12 @@ public class User {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
+
+//    public List<Picture> getPictures() {
+//        return pictures;
+//    }
+//
+//    public void setPictures(List<Picture> pictures) {
+//        this.pictures = pictures;
+//    }
 }
