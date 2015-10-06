@@ -10,4 +10,8 @@ import java.util.List;
 public interface TagService {
 
     public List<Tag> findAll();
+
+    public List<Tag> findByPicTypeId(long picTypeId);
+
+    public Tag findOne(long id);
 }

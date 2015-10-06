@@ -1,15 +1,12 @@
 package com.hc.service;
 
-import org.springframework.stereotype.Service;
+import com.hc.domain.User;
 
 /**
  * Created by Administrator on 2015/8/24.
  */
-@Service
-public class UserService {
+public interface UserService {
 
-//    @Autowired
-//    private UserRepository userRepository;//code10
 //
 //    public List<User> findAll() {
 //        return (List<User>) userRepository.findAll();
@@ -19,9 +16,10 @@ public class UserService {
 //        return userRepository.save(user);
 //    }
 //
-//    public User findUserById(int id) {
-//        return userRepository.findOne(id);
-//    }
+    public User findUserById(int id);
+
+    public User findUserByUsername(String username);
+
 //
 //    public User login(String username, String password) {
 //        return userRepository.findByUsernameAndPassword(username, password);

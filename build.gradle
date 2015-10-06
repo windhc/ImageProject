@@ -7,7 +7,7 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath("org.springframework:springloaded:1.2.1.RELEASE")
+        classpath("org.springframework:springloaded:1.2.3.RELEASE")
     }
 }
 
@@ -27,6 +27,9 @@ repositories {
     maven { url "http://maven.oschina.net/content/groups/public/" }
 }
 dependencies {
+    compile("commons-io:commons-io:2.4")
+    compile("net.coobird:thumbnailator:[0.4, 0.5)")
+    compile("com.upyun:java-sdk:3.1")
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile("org.springframework.boot:spring-boot-starter-security")

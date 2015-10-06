@@ -37,13 +37,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="http://v3.bootcss.com/examples/dashboard/#">图片后台管理</a>
+            <a class="navbar-brand" href="#">图片后台管理</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">欢迎：XXX</a></li>
+                <li><a href="/logout">退出</a></li>
                 <li><a href="#">设置</a></li>
-                <li><a href="#">简介</a></li>
                 <li><a href="#">帮助</a></li>
             </ul>
             <form class="navbar-form navbar-right">
@@ -57,23 +57,23 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar text-center">
-                <li class="active"><a href="#/index">图册列表 <span class="sr-only">(current)</span></a></li>
-                <li><a href="#/add">图册新增</a></li>
+                <li onclick="return this.className = 'active'"><a href="#/atlas/index">图册列表 <span class="sr-only">(current)</span></a></li>
+                <li onclick="return this.className = 'active'"><a href="#/atlas/add">图册新增</a></li>
             </ul>
             <ul class="nav nav-sidebar text-center">
-                <li><a href="">标签管理</a></li>
-                <li><a href="">标签新增</a></li>
+                <li ng-class="main_active"><a href="">标签管理</a></li>
+                <li ng-class="main_active"><a href="">标签新增</a></li>
             </ul>
             <ul class="nav nav-sidebar text-center">
-                <li><a href="">分类管理</a></li>
-                <li><a href="">分类新增</a></li>
+                <li ng-class="main_active"><a href="">分类管理</a></li>
+                <li ng-class="main_active"><a href="">分类新增</a></li>
             </ul>
             <ul class="nav nav-sidebar text-center">
-                <li><a href="">用户管理</a></li>
-                <li><a href="">用户新增</a></li>
+                <li ng-class="main_active"><a href="">用户管理</a></li>
+                <li ng-class="main_active"><a href="">用户新增</a></li>
             </ul>
             <ul class="nav nav-sidebar text-center">
-                <li><a href="">密码修改</a></li>
+                <li ng-class="main_active"><a href="">密码修改</a></li>
             </ul>
         </div>
 
@@ -104,7 +104,31 @@
 <link href="/vendor/ng-table/ng-table.min.css" rel="stylesheet">
 
 <script src="/javascript/module/admin.js"></script>
-<script src="/javascript/module/admin-picture.js"></script>
+<script src="/javascript/module/admin-atlas.js"></script>
+
+<!-- The Load Image plugin is included for the preview images and image resizing functionality -->
+<script src="//blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
+<!-- The Canvas to Blob plugin is included for image resizing functionality -->
+<script src="//blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
+<!-- blueimp Gallery script -->
+<script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
+<script src="/vendor/jQuery-File-Upload-9.11.2/vendor/jquery.ui.widget.js"></script>
+<script src="/vendor/jQuery-File-Upload-9.11.2/jquery.iframe-transport.js"></script>
+<script src="/vendor/jQuery-File-Upload-9.11.2/jquery.fileupload.js"></script>
+<!-- The FileBean Upload processing plugin -->
+<script src="/vendor/jQuery-File-Upload-9.11.2/jquery.fileupload-process.js"></script>
+<!-- The FileBean Upload image preview & resize plugin -->
+<script src="/vendor/jQuery-File-Upload-9.11.2/jquery.fileupload-image.js"></script>
+<!-- The FileBean Upload audio preview plugin -->
+<script src="/vendor/jQuery-File-Upload-9.11.2/jquery.fileupload-audio.js"></script>
+<!-- The FileBean Upload video preview plugin -->
+<script src="/vendor/jQuery-File-Upload-9.11.2/jquery.fileupload-video.js"></script>
+<!-- The FileBean Upload validation plugin -->
+<script src="/vendor/jQuery-File-Upload-9.11.2/jquery.fileupload-validate.js"></script>
+<!-- The FileBean Upload Angular JS module -->
+<script src="/vendor/jQuery-File-Upload-9.11.2/jquery.fileupload-angular.js"></script>
+
+<script src="/javascript/app.js"></script>
 
 </body>
 </html>

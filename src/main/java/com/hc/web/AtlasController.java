@@ -1,16 +1,22 @@
 package com.hc.web;
 
 import com.hc.domain.Atlas;
-import com.hc.service.AtlasService;
+import com.hc.domain.Picture;
+import com.hc.domain.Tag;
+import com.hc.service.*;
+import com.hc.utils.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,17 +29,30 @@ public class AtlasController {
     @Autowired
     AtlasService atlasService;
 
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public void delete(@PathVariable("id") long id){
+        atlasService.delete(id);
+    }
+
+    @RequestMapping(value = "/tag/{atlasId}",method = RequestMethod.GET)
+    public List<Tag> getAtlasTag(@PathVariable("atlasId") long atlasId){
+        return atlasService.atlasTag(atlasId);
+    }
+
+    @Transactional
+    @RequestMapping(value = "/save",method = RequestMethod.POST)
+    public Map getAtlasPicType(@RequestBody Map<String,Object> params){
+        atlasService.saveForForm(params);
+        return CommonUtil.response(true,"添加成功！");
+    }
+
     @RequestMapping(value = "/atlasPage", method = RequestMethod.GET)
     public Page<Atlas> getAllPicture(@RequestParam() Map pageParams) {
 
         PageRequest pageRequest = buildPageRequest(pageParams);
-        for(Object key : pageParams.keySet()){
-            System.out.println("key= " + key + "  and  value= " + pageParams.get(key));
-        }
-
         String filterValue = (String) pageParams.get("filter[atlas]");
         if (filterValue!=null){
-            return atlasService.findByAtlas("%"+filterValue+"%",pageRequest);
+            return atlasService.findByAtlasName("%" + filterValue + "%", pageRequest);
         }
         return atlasService.findAll(pageRequest);
     }

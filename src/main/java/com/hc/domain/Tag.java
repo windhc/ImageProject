@@ -1,6 +1,9 @@
 package com.hc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * 图册标签
@@ -8,6 +11,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "tb_tag")
+@JsonIgnoreProperties(value={"atlases"})
 public class Tag {
     @Id
     @GeneratedValue
@@ -20,8 +24,8 @@ public class Tag {
     @JoinColumn(name = "pictype_id")
     private PicType picType;
 
-//    @OneToMany(fetch = FetchType.LAZY,mappedBy="tag") //mappedBy 由Atlas中的tag来维护级联关系
-//    private Set<Atlas> atlases;
+    @ManyToMany(fetch = FetchType.LAZY,mappedBy="tags") //mappedBy 由Atlas中的tags来维护级联关系
+    private List<Atlas> atlases;
 
     public Long getId() {
         return id;
@@ -47,11 +51,11 @@ public class Tag {
         this.picType = picType;
     }
 
-//    public Set<Atlas> getAtlases() {
-//        return atlases;
-//    }
-//
-//    public void setAtlases(Set<Atlas> atlases) {
-//        this.atlases = atlases;
-//    }
+    public List<Atlas> getAtlases() {
+        return atlases;
+    }
+
+    public void setAtlases(List<Atlas> atlases) {
+        this.atlases = atlases;
+    }
 }

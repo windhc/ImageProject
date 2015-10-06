@@ -2,7 +2,7 @@
 
 <div class="table-responsive">
     <!--<div style="height:300px;" class="gridStyle" ng-grid="gridOptions" />-->
-    <table ng-table="tableParams" show-filter="true" class="table table-striped table-condensed">
+    <table ng-table="tableParams" show-filter="true" class="table table-striped table-condensed table-bordered">
         <tr ng-repeat="atlas in $data">
             <td data-title="'ID'" sortable="'id'" class="text-center">
                 {{atlas.id}}
@@ -10,20 +10,18 @@
             <td data-title="'图册名称'" filter="{ 'atlas': 'text' }" sortable="'atlas'" class="text-center">
                 {{atlas.atlas}}
             </td>
-            <td data-title="'标签'"  sortable="'tag.tag'" class="text-center">
-                {{atlas.tag.tag}}
-            </td>
-            <td data-title="'分类'"  sortable="'tag.picType.pictype'" class="text-center">
-                {{atlas.tag.picType.pictype}}
+            <td data-title="'分类'"  sortable="'picType.pictype'" class="text-center">
+                {{atlas.picType.pictype}}
             </td>
             <td data-title="'添加时间'"  sortable="'addtime'" class="text-center">
                 {{atlas.addtime}}
             </td>
-            <!--<td data-title="'用户'"  sortable="'username'" class="text-center">-->
-                <!--{{atlas.user.username}}-->
-            <!--</td>-->
+            <td data-title="'用户'"  sortable="'user.username'" class="text-center">
+                {{atlas.user.username}}
+            </td>
             <td data-title="'操作'" class="text-center">
-                <a href="#{{atlas.id}}" class="btn btn-default">详细</a>
+                <a href="#{{atlas.id}}" class="btn btn-default btn-xs">详细</a>
+                <a ng-click=delete(atlas.id) class="btn btn-primary btn-xs">删除</a>
             </td>
         </tr>
     </table>

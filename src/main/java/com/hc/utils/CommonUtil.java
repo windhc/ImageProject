@@ -1,10 +1,7 @@
 package com.hc.utils;
 
 import java.lang.reflect.Array;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 通用工具类
@@ -58,5 +55,18 @@ public class CommonUtil {
         long l2 = c.getTimeInMillis();
 
         return (l2 - l1) / 1000;
+    }
+
+    /**
+     * 全局返回函数
+     * @param isSuccess 执行是否成功
+     * @param msg 返回的message
+     * @return
+     */
+    public static Map<String, Object> response(boolean isSuccess, String msg){
+        Map<String, Object> map = new HashMap<>();
+        map.put("success",isSuccess);
+        map.put("msg",msg);
+        return map;
     }
 }

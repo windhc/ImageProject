@@ -11,4 +11,6 @@ public interface PictureService {
 
     public Page<Picture> findAll(Pageable pageable);
 
+    public Picture save(Picture picture);
+
 }

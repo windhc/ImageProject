@@ -24,15 +24,14 @@ public class PictureServiceImpl implements PictureService {
     @Autowired
     TagRepository tagRepository;
 
-//    @Override
-//    public Page<Picture> findAll(Pageable pageable) {
-//        Page<Picture> pictures = pictureRepository.findAll(pageable);
-//        return pictures;
-//    }
-
     @Override
     public Page<Picture> findAll(Pageable pageable) {
         Page<Picture> pictures = pictureRepository.findAll(pageable);
         return pictures;
+    }
+
+    @Override
+    public Picture save(Picture picture) {
+        return pictureRepository.save(picture);
     }
 }

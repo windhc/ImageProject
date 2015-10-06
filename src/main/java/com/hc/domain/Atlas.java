@@ -1,6 +1,7 @@
 package com.hc.domain;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * 图册
@@ -20,12 +21,24 @@ public class Atlas {
     @Column(nullable = false)
     private String addtime;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "tag_id")
-    private Tag tag;
+    @ManyToMany
+    private List<Tag> tags;
 
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy="atlas") //mappedBy 由Picture中的atlas来维护级联关系
-//    private Set<Picture> pictures;
+    @ManyToOne
+    @JoinColumn(name = "pictype_id")
+    private PicType picType;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Long getId() {
         return id;
@@ -43,12 +56,12 @@ public class Atlas {
         this.atlas = atlas;
     }
 
-    public Tag getTag() {
-        return tag;
+    public List<Tag> getTags() {
+        return tags;
     }
 
-    public void setTag(Tag tag) {
-        this.tag = tag;
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
     }
 
     public String getAddtime() {
@@ -59,7 +72,15 @@ public class Atlas {
         this.addtime = addtime;
     }
 
-//    public Set<Picture> getPictures() {
+    public PicType getPicType() {
+        return picType;
+    }
+
+    public void setPicType(PicType picType) {
+        this.picType = picType;
+    }
+
+    //    public Set<Picture> getPictures() {
 //        return pictures;
 //    }
 //

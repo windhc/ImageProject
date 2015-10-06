@@ -31,8 +31,8 @@ public class User {
     @Column(nullable = false)
     private boolean enabled;
 
-//    @OneToMany(mappedBy="user") //mappedBy 由Picture中的user来维护级联关系
-//    private List<Picture> pictures = new ArrayList<>();
+    @Enumerated(EnumType.STRING)
+    private ROLE role;
 
     public Long getId() {
         return id;
@@ -98,11 +98,20 @@ public class User {
         this.enabled = enabled;
     }
 
-//    public List<Picture> getPictures() {
+    public ROLE getRole() {
+        return role;
+    }
+
+    public void setRole(ROLE role) {
+        this.role = role;
+    }
+
+    //    public List<Picture> getPictures() {
 //        return pictures;
 //    }
 //
 //    public void setPictures(List<Picture> pictures) {
 //        this.pictures = pictures;
 //    }
+
 }

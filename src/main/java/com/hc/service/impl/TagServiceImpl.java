@@ -23,4 +23,15 @@ public class TagServiceImpl implements TagService {
     public List<Tag> findAll() {
         return (List<Tag>) tagRepository.findAll();
     }
+
+    @Override
+    public List<Tag> findByPicTypeId(long picTypeId) {
+        return tagRepository.findByPicTypeId(picTypeId);
+    }
+
+    @Override
+    public Tag findOne(long id) {
+        return tagRepository.findOne(id);
+    }
+
 }
