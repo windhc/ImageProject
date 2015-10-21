@@ -191,7 +191,8 @@ Created by gota on 15-5-20.
       return $scope.dtColumns = [MyDTColumnBuilder.newColumn('uuid', 'ID'), MyDTColumnBuilder.newColumn('bootTime', '启动时间'), MyDTColumnBuilder.newColumn('serverTime', '服务器时间')];
     }
   ]).controller('DeviceDetailController', [
-    '$scope', '$routeParams', 'DTOptionsBuilder', 'DTColumnBuilder', 'MyDTColumnBuilder', 'DataTableService', 'DeviceService', 'WebSocketService', function($scope, $routeParams, DTOptionsBuilder, DTColumnBuilder, MyDTColumnBuilder, DataTableService, DeviceService, WebSocketService) {
+    '$scope', '$routeParams', 'DTOptionsBuilder', 'DTColumnBuilder', 'MyDTColumnBuilder', 'DataTableService', 'DeviceService', 'WebSocketService',
+    function($scope, $routeParams, DTOptionsBuilder, DTColumnBuilder, MyDTColumnBuilder, DataTableService, DeviceService, WebSocketService) {
       var actionsHtml;
       actionsHtml = function(data, type, full, meta) {
         return "<button class='del-btn' title='卸载应用' ng-click='uninstall(\"" + $routeParams.id + "\", \"" + data + "\")'><i class='fa fa-trash-o'></i></button>";

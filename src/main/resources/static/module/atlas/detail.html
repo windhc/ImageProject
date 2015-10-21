@@ -1,0 +1,50 @@
+<div id="legend" class="">
+    <legend class="">图册详情</legend>
+</div>
+
+<table class="table table-bordered">
+    <tr>
+        <th class="col-md-2 text-right">图册名称</th>
+        <td>{{atlas.atlas}}</td>
+    </tr>
+    <tr>
+        <th class="col-md-2 text-right">所属分类</th>
+        <td>{{atlas.picType.pictype}}</td>
+    </tr>
+    <tr>
+        <th class="col-md-2 text-right">标签</th>
+        <td class="row">
+            <span class="label label-info" style="margin-right: 10px" data-ng-repeat="tag in atlas.tags">{{tag.tag}}</span>
+        </td>
+    </tr>
+
+    <tr>
+        <th class="col-md-2 text-right">创建时间</th>
+        <td>{{atlas.addtime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+    </tr>
+    <tr>
+        <th class="col-md-2 text-right">创建人</th>
+        <td>{{atlas.user.username}}</td>
+    </tr>
+    <tr>
+        <th class="col-md-2 text-right">图片</th>
+        <td class="row">
+            <div data-ng-repeat="picture in pictures" class="col-md-4">
+                <img src="{{picture.picpath}}!210">
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="row" style="text-align: center">
+            <a href="#/atlas/index" class="btn btn-primary">返回</a>
+            <a href="#/atlas/{{atlas.id}}/edit" class="btn btn-primary col-sm-offset-1">编辑</a>
+        </td>
+    </tr>
+</table>
+
+
+<!--<br>-->
+<!--{{atlas | json}}-->
+<!--<br>-->
+<!--<br>-->
+<!--{{pictures | json}}-->

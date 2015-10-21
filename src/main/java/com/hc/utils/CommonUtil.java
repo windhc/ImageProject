@@ -1,5 +1,8 @@
 package com.hc.utils;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+
 import java.lang.reflect.Array;
 import java.util.*;
 
@@ -66,7 +69,39 @@ public class CommonUtil {
     public static Map<String, Object> response(boolean isSuccess, String msg){
         Map<String, Object> map = new HashMap<>();
         map.put("success",isSuccess);
-        map.put("msg",msg);
+        map.put("msg", msg);
         return map;
+    }
+
+    /**
+     * 创建分页请求.
+     */
+    public static PageRequest buildPageRequest(Map pageParams) {
+
+        int page = 1;
+        int count = 1;
+        Sort sort = null;
+
+        for(Object key : pageParams.keySet()){
+            String paramKey = (String)key;
+            if (paramKey.equals("page")){
+                page = Integer.valueOf((String)pageParams.get(paramKey));
+            }
+            if (paramKey.equals("count")){
+                count = Integer.valueOf((String)pageParams.get(paramKey));
+            }
+            if (paramKey.startsWith("sorting[")){
+                String sortKey = paramKey.substring(paramKey.indexOf("[")+1,paramKey.lastIndexOf("]"));
+                String sortType = (String)pageParams.get(paramKey);
+
+                if(sortType.equals("asc")){
+                    sort = new Sort(Sort.Direction.ASC, sortKey);
+                }
+                if(sortType.equals("desc")){
+                    sort = new Sort(Sort.Direction.DESC, sortKey);
+                }
+            }
+        }
+        return new PageRequest(page-1, count, sort);
     }
 }

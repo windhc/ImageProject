@@ -103,3 +103,8 @@ body {
   display: inline-block;
   border-radius: 50%;
 }
+
+.alert{
+  padding: 6px 20px 6px 6px;
+  margin-bottom: 5px;
+}

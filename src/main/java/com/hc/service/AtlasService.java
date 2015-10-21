@@ -18,21 +18,21 @@ public interface AtlasService {
      * 删除图册
      * @param id 要删除的图册ID
      */
-    public void delete(long id);
+    void delete(long id);
 
     /**
      * 根据图册ID获得图册标签
      * @param atlasId 图册ID
      * @return 该图册的所有标签
      */
-    public List<Tag> atlasTag(long atlasId);
+    List<Tag> atlasTag(long atlasId);
 
     /**
      * 分页得到所有的图册
      * @param pageable 分页参数
      * @return 图册分页
      */
-    public Page<Atlas> findAll(Pageable pageable);
+    Page<Atlas> findAll(Pageable pageable);
 
     /**
      * 根据图册名称模糊查询
@@ -40,15 +40,18 @@ public interface AtlasService {
      * @param pageable 分页参数
      * @return 模糊查询所得图册分页
      */
-    public Page<Atlas> findByAtlasName(String atlasname, Pageable pageable);
+    Page<Atlas> findByAtlasName(String atlasname, Pageable pageable);
 
     /**
      * 保存图册
      * @param atlas
      * @return 所保存的图册
      */
-    public Atlas save(Atlas atlas);
+    Atlas save(Atlas atlas);
 
-    public Atlas saveForForm(Map<String,Object> params);
+    Atlas saveForForm(Map<String,Object> params);
 
+    Atlas findOne(long id);
+
+    Atlas updateForForm(Map<String, Object> params);
 }

@@ -2,7 +2,7 @@
  * Created by Administrator on 2015/8/8.
  */
 var ImageAdminApp = angular.module('ImageAdminApp', [
-    'ngRoute', 'admin.Atlas'
+    'ngRoute', 'admin.Atlas', 'admin.Picture','common'
 ]);
 
 ImageAdminApp.config(['$routeProvider', function($routeProvider) {
@@ -12,9 +12,15 @@ ImageAdminApp.config(['$routeProvider', function($routeProvider) {
             }).when('/atlas/add', {
                 templateUrl: '/module/atlas/add.html',
                 controller: 'AtlasAddCtrl'
-            }).when('/atlas/add', {
-                templateUrl: '/module/atlas/add.html',
-                controller: 'AtlasAddCtrl'
+            }).when('/atlas/:id/detail', {
+                templateUrl: '/module/atlas/detail.html',
+                controller: 'AtlasDetailController'
+            }).when('/atlas/:id/edit', {
+                templateUrl: '/module/atlas/edit.html',
+                controller: 'AtlasEditController'
+            }).when('/picture/index', {
+                templateUrl: '/module/picture/index.html',
+                controller: 'PictureCtrl'
             }).otherwise({ redirectTo: '/atlas/index'});
     }]);
 
@@ -37,6 +43,24 @@ ImageAdminApp.service('UserService', ['$http',
             },
             save: function(atlas) {
                 return $http.post("/atlas/save",atlas);
+            },
+            detail: function(id) {
+                return $http.get("/atlas/detail/" + id);
+            },
+            update: function(atlas) {
+                return $http.post("/atlas/update",atlas);
+            }
+
+        };
+    }
+]).service('PictureService', ['$http',
+    function($http) {
+        return {
+            getPictureByAtlasId: function(atlasid) {
+                return $http.get("/picture/byatlasid/"+atlasid);
+            },
+            delete: function(id) {
+                return $http.get("/picture/delete/" + id);
             }
         };
     }

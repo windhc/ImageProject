@@ -50,13 +50,16 @@ public class AtlasServiceImpl implements AtlasService {
 
     @Override
     public void delete(long id) {
+        List<Picture> pictures = pictureService.findPicturesByAtlasId(id);
+        pictures.stream().forEach( picture -> {
+            pictureService.delete(picture.getId());
+        });
         atlasRepository.delete(id);
     }
 
     @Override
     public List<Tag> atlasTag(long atlasId) {
         Atlas atlas = atlasRepository.findOne(atlasId);
-
         return null;
     }
 
@@ -94,6 +97,40 @@ public class AtlasServiceImpl implements AtlasService {
         atlas.setAtlas(name);
         atlas.setPicType(picTypeService.findOne(pictypeId));
         atlas.setAddtime(String.valueOf(System.currentTimeMillis()));
+        atlasRepository.save(atlas);
+
+        for (String picpath : filenames){
+            Picture picture = new Picture();
+            picture.setPicpath(picpath);
+            picture.setAtlas(atlas);
+            picture.setAddtime(String.valueOf(System.currentTimeMillis()));
+            pictureService.save(picture);
+        }
+        return atlas;
+    }
+
+    @Override
+    public Atlas findOne(long id) {
+        return atlasRepository.findOne(id);
+    }
+
+    @Override
+    public Atlas updateForForm(Map<String, Object> params) {
+
+        String name = (String) params.get("atlas");
+        long atlasId = Long.valueOf(params.get("id").toString());
+        long pictypeId = Long.valueOf(params.get("picTypeId").toString());
+        List<Integer> tagIds = (List<Integer>) params.get("tagIds");
+        List<String> filenames = (List<String>) params.get("files");
+
+        Atlas atlas = atlasRepository.findOne(atlasId);
+        List<Tag> tags = new ArrayList<>();
+        for (Integer tagId : tagIds){
+            tags.add(tagService.findOne(tagId));
+        }
+        atlas.setTags(tags);
+        atlas.setAtlas(name);
+        atlas.setPicType(picTypeService.findOne(pictypeId));
         atlasRepository.save(atlas);
 
         for (String picpath : filenames){

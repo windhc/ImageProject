@@ -25,7 +25,11 @@
     <!--[endif]-->
 </head>
 
-<body ng-app="ImageAdminApp">
+<body ng-app="ImageAdminApp" data-ng-controller="MainController">
+
+<div style="width: 100%;height:30px;position:fixed;top: 0;z-index: 9999">
+    <uib-alert ng-repeat="alert in AlertService.alerts" type="{{alert.type}}" close="AlertService.dismiss($index)">{{alert.msg}}</uib-alert>
+</div>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
@@ -56,6 +60,9 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar text-center">
+                <li onclick="return this.className = 'active'"><a href="#/picture/index">图片管理</a></li>
+            </ul>
             <ul class="nav nav-sidebar text-center">
                 <li onclick="return this.className = 'active'"><a href="#/atlas/index">图册列表 <span class="sr-only">(current)</span></a></li>
                 <li onclick="return this.className = 'active'"><a href="#/atlas/add">图册新增</a></li>
@@ -102,9 +109,12 @@
 
 <script src="/vendor/ng-table/ng-table.min.js"></script>
 <link href="/vendor/ng-table/ng-table.min.css" rel="stylesheet">
+<script src="/vendor/ui-bootstrap-0.14.0.min.js"></script>
 
 <script src="/javascript/module/admin.js"></script>
 <script src="/javascript/module/admin-atlas.js"></script>
+<script src="/javascript/module/admin-picture.js"></script>
+<script src="/javascript/module/common.js"></script>
 
 <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
 <script src="//blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>

@@ -1,4 +1,4 @@
-<h1 class="sub-header">所有图片</h1>
+<h1 class="sub-header">所有图册</h1>
 
 <div class="table-responsive">
     <!--<div style="height:300px;" class="gridStyle" ng-grid="gridOptions" />-->
@@ -14,13 +14,14 @@
                 {{atlas.picType.pictype}}
             </td>
             <td data-title="'添加时间'"  sortable="'addtime'" class="text-center">
-                {{atlas.addtime}}
+                {{atlas.addtime | date:'yyyy-MM-dd HH:mm:ss'}}
             </td>
             <td data-title="'用户'"  sortable="'user.username'" class="text-center">
                 {{atlas.user.username}}
             </td>
             <td data-title="'操作'" class="text-center">
-                <a href="#{{atlas.id}}" class="btn btn-default btn-xs">详细</a>
+                <a href="#/atlas/{{atlas.id}}/detail" class="btn btn-default btn-xs">详细</a>
+                <a href="#/atlas/{{atlas.id}}/edit" class="btn btn-default btn-xs">编辑</a>
                 <a ng-click=delete(atlas.id) class="btn btn-primary btn-xs">删除</a>
             </td>
         </tr>

@@ -20,7 +20,6 @@
     <orderEntry type="library" exported="" name="Gradle: org.springframework.boot:spring-boot-starter-web:1.2.5.RELEASE" level="project" />
     <orderEntry type="library" exported="" name="Gradle: org.springframework.boot:spring-boot-starter-actuator:1.2.5.RELEASE" level="project" />
     <orderEntry type="library" exported="" name="Gradle: org.springframework.boot:spring-boot-starter-security:1.2.5.RELEASE" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: javax.inject:javax.inject:1" level="project" />
     <orderEntry type="library" exported="" name="Gradle: org.springframework.boot:spring-boot-starter:1.2.5.RELEASE" level="project" />
     <orderEntry type="library" exported="" name="Gradle: org.springframework:spring-core:4.1.7.RELEASE" level="project" />
     <orderEntry type="library" exported="" name="Gradle: org.springframework:spring-jdbc:4.1.7.RELEASE" level="project" />
