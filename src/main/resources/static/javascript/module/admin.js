@@ -7,19 +7,19 @@ var ImageAdminApp = angular.module('ImageAdminApp', [
 
 ImageAdminApp.config(['$routeProvider', function($routeProvider) {
         $routeProvider.when('/atlas/index', {
-                templateUrl: '/module/atlas/index.html',
+                templateUrl: '/atlas/index.html',
                 controller: 'AtlasCtrl'
             }).when('/atlas/add', {
-                templateUrl: '/module/atlas/add.html',
+                templateUrl: '/atlas/add.html',
                 controller: 'AtlasAddCtrl'
             }).when('/atlas/:id/detail', {
-                templateUrl: '/module/atlas/detail.html',
+                templateUrl: '/atlas/detail.html',
                 controller: 'AtlasDetailController'
             }).when('/atlas/:id/edit', {
-                templateUrl: '/module/atlas/edit.html',
+                templateUrl: '/atlas/edit.html',
                 controller: 'AtlasEditController'
             }).when('/picture/index', {
-                templateUrl: '/module/picture/index.html',
+                templateUrl: '/picture/index.html',
                 controller: 'PictureCtrl'
             }).otherwise({ redirectTo: '/atlas/index'});
     }]);

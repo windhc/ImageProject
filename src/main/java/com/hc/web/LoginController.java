@@ -15,6 +15,6 @@ public class LoginController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String login(){
-        return "/admin/login.html";
+        return "/view/admin/login.html";
     }
 }

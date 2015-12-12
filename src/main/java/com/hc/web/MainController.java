@@ -18,6 +18,6 @@ public class MainController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String main(){
-        return "admin/main.html";
+        return "/view/admin/main.html";
     }
 }
