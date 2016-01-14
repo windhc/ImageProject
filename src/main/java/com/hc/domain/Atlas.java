@@ -35,7 +35,7 @@ public class Atlas {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany
+    @OneToMany(mappedBy = "atlas")
     private List<Picture> pictures;
 
     public User getUser() {

@@ -9,8 +9,12 @@ import java.util.List;
  */
 public interface PicTypeService {
 
-    public List<PicType> getAll();
+    List<PicType> getAll();
 
-    public PicType findOne(long id);
+    PicType findOne(long id);
+
+    PicType save(PicType picType);
+
+    void delete(long id);
 
 }

@@ -53,11 +53,11 @@ angular.module('common', ['ui.bootstrap'])
         };
     }
     ])
-
-    .controller('MainController', ["$scope","$location","AlertService",
-        function($scope, $location, AlertService){
+    .controller('MainController', ["$scope", "$location", "$http", "AlertService",
+        function ($scope, $location, $http, AlertService) {
             AlertService.init($scope);
-            console.log("MainController")
+            $http.get("/admin/info").success(function (data) {
+                $scope.info = data;
+            })
         }
     ]);
-

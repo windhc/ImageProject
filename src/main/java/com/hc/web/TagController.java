@@ -2,13 +2,12 @@ package com.hc.web;
 
 import com.hc.domain.Tag;
 import com.hc.service.TagService;
+import com.hc.utils.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2015/9/27.
@@ -22,13 +21,34 @@ public class TagController {
 
     @RequestMapping(value = "/listTagAll",method = RequestMethod.GET)
     public List<Tag> getPicTypeAll(){
-
         return tagService.findAll();
     }
 
     @RequestMapping(value = "/pictypetag/{pictypeId}",method = RequestMethod.GET)
     public List<Tag> getPicTypeTag(@PathVariable("pictypeId") long picTypeId){
-
         return tagService.findByPicTypeId(picTypeId);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public Tag findOne(@PathVariable("id") long id) {
+        return tagService.findOne(id);
+    }
+
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public Map save(@RequestBody Tag tag) {
+        tagService.save(tag);
+        return CommonUtil.response(true, "标签添加成功");
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public Map delete(@PathVariable("id") long id) {
+        tagService.delete(id);
+        return CommonUtil.response(true, "标签删除成功");
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public Map update(@RequestBody Tag tag) {
+        tagService.save(tag);
+        return CommonUtil.response(true, "标签修改成功");
     }
 }

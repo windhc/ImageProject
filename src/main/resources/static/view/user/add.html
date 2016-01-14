@@ -1,0 +1,13 @@
+<div id="legend" class="">
+    <legend class="">添加用户</legend>
+</div>
+
+<form>
+    <div class="form-group">
+        <label for="username">用户名</label>
+        <input type="text" class="form-control" id="username" ng-model="user.username" placeholder="用户名">
+        <label for="pwd">密码</label>
+        <input type="text" class="form-control" id="pwd" ng-model="user.password" placeholder="密码">
+    </div>
+    <button type="submit" class="btn btn-primary" data-ng-click="save()">添加</button>
+</form>

@@ -1,20 +1,15 @@
 package com.hc;
 
-import com.hc.dao.TagRepository;
-import com.hc.utils.UpYunUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by Administrator on 2015/8/21.
  */
 public class Test {
 
-//    public static void main(String[] args) {
+    public static void main(String[] args) {
+
+        System.out.println(new BCryptPasswordEncoder().encode("123456"));
 //        StringBuffer a = new StringBuffer("A");
 //        StringBuffer b = new StringBuffer("B");
 //        operator(a, b);
@@ -45,5 +40,5 @@ public class Test {
 //    public static void operator(StringBuffer x, StringBuffer y) {
 //        x.append(y);
 //        y = x;
-//    }
+    }
 }

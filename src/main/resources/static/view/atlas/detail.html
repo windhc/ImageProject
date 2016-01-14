@@ -9,12 +9,13 @@
     </tr>
     <tr>
         <th class="col-md-2 text-right">所属分类</th>
-        <td>{{atlas.picType.pictype}}</td>
+        <td>{{atlas.picType.typeName}}</td>
     </tr>
     <tr>
         <th class="col-md-2 text-right">标签</th>
         <td class="row">
-            <span class="label label-info" style="margin-right: 10px" data-ng-repeat="tag in atlas.tags">{{tag.tag}}</span>
+            <span class="label label-info" style="margin-right: 10px"
+                  data-ng-repeat="tag in atlas.tags">{{tag.tagName}}</span>
         </td>
     </tr>
 

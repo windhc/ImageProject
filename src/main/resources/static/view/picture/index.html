@@ -1,7 +1,6 @@
 <script>
     $(function () {
         $('[data-toggle="popover"]').popover();
-        console.log("sss");
     })
 //    function showa(id){
 //
@@ -18,7 +17,8 @@
                 {{picture.id}}
             </td>
             <td data-title="'图片'" class="text-center">
-                <img id="{{picture.id}}" ng-click="showPopover(picture.id)" src="{{picture.picpath}}!80x80" data-container="body"
+                <img id="{{picture.id}}" ng-click="showPopover(picture.id)" ng-src="{{picture.picpath}}!80x80"
+                     data-container="body"
                      data-toggle="popover" data-placement="auto" data-html="true" data-trigger="manual"
                      data-content="<img src='{{picture.picpath}}!210'/>"/>
             </td>

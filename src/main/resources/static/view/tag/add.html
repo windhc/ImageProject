@@ -1,0 +1,16 @@
+<div id="legend" class="">
+    <legend class="">添加标签</legend>
+</div>
+
+<form ng-submit="save()">
+    <div class="form-group">
+        <label for="tagName">标签名称</label>
+        <input type="text" class="form-control" id="tagName" ng-model="tag.tagName" placeholder="名称" required>
+        <br>
+        <label for="picTypeName">所属分类</label>
+        <select ng-model="tag.picType.id" id="picTypeName" class="form-control" required>
+            <option data-ng-repeat="type in typeList" value={{type.id}}>{{type.typeName}}</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">添加</button>
+</form>

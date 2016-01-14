@@ -9,9 +9,13 @@ import java.util.List;
  */
 public interface TagService {
 
-    public List<Tag> findAll();
+    List<Tag> findAll();
 
-    public List<Tag> findByPicTypeId(long picTypeId);
+    List<Tag> findByPicTypeId(long picTypeId);
 
-    public Tag findOne(long id);
+    Tag findOne(long id);
+
+    Tag save(Tag tag);
+
+    void delete(long id);
 }

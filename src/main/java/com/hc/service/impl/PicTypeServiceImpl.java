@@ -27,6 +27,16 @@ public class PicTypeServiceImpl implements PicTypeService {
         return picTypeRepository.findOne(id);
     }
 
+    @Override
+    public PicType save(PicType picType) {
+        return picTypeRepository.save(picType);
+    }
+
+    @Override
+    public void delete(long id) {
+        picTypeRepository.delete(id);
+    }
+
 
 }
 

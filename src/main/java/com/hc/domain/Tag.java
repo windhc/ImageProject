@@ -18,7 +18,7 @@ public class Tag {
     private Long id;
 
     @Column(nullable = false)
-    private String tag;
+    private String tagName;
 
     @ManyToOne
     @JoinColumn(name = "pictype_id")
@@ -35,12 +35,12 @@ public class Tag {
         this.id = id;
     }
 
-    public String getTag() {
-        return tag;
+    public String getTagName() {
+        return tagName;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setTagName(String tagName) {
+        this.tagName = tagName;
     }
 
     public PicType getPicType() {

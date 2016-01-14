@@ -9,7 +9,7 @@ angular.module('admin.Picture', ['ngTable', 'ngResource'])
 
             $scope.tableParams = new ngTableParams({
                 page: 1,            // show first page
-                count: 30,           // count per page
+                count: 20,           // count per page
                 sorting: {
                     name: ''        // initial sorting
                 }
