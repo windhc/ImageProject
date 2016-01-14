@@ -34,6 +34,11 @@ public class AtlasController {
         atlasService.delete(id);
     }
 
+    @RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
+    public Atlas datail(@PathVariable("id") long id){
+        return atlasService.findOne(id);
+    }
+
     @RequestMapping(value = "/tag/{atlasId}",method = RequestMethod.GET)
     public List<Tag> getAtlasTag(@PathVariable("atlasId") long atlasId){
         return atlasService.atlasTag(atlasId);
@@ -41,15 +46,15 @@ public class AtlasController {
 
     @Transactional
     @RequestMapping(value = "/save",method = RequestMethod.POST)
-    public Map getAtlasPicType(@RequestBody Map<String,Object> params){
+    public Map save(@RequestBody Map<String,Object> params){
         atlasService.saveForForm(params);
-        return CommonUtil.response(true,"添加成功！");
+        return CommonUtil.response(true, "添加成功！");
     }
 
     @RequestMapping(value = "/atlasPage", method = RequestMethod.GET)
     public Page<Atlas> getAllPicture(@RequestParam() Map pageParams) {
 
-        PageRequest pageRequest = buildPageRequest(pageParams);
+        PageRequest pageRequest = CommonUtil.buildPageRequest(pageParams);
         String filterValue = (String) pageParams.get("filter[atlas]");
         if (filterValue!=null){
             return atlasService.findByAtlasName("%" + filterValue + "%", pageRequest);
@@ -57,36 +62,12 @@ public class AtlasController {
         return atlasService.findAll(pageRequest);
     }
 
-    /**
-     * 创建分页请求.
-     */
-    private PageRequest buildPageRequest(Map pageParams) {
+    @Transactional
+    @RequestMapping(value = "/update",method = RequestMethod.POST)
+    public Map update(@RequestBody Map<String,Object> params) {
 
-        int page = 1;
-        int count = 1;
-        Sort sort = null;
-
-        for(Object key : pageParams.keySet()){
-            String paramKey = (String)key;
-            if (paramKey.equals("page")){
-                page = Integer.valueOf((String)pageParams.get(paramKey));
-            }
-            if (paramKey.equals("count")){
-                count = Integer.valueOf((String)pageParams.get(paramKey));
-            }
-            if (paramKey.startsWith("sorting[")){
-                String sortKey = paramKey.substring(paramKey.indexOf("[")+1,paramKey.lastIndexOf("]"));
-                String sortType = (String)pageParams.get(paramKey);
-
-                if(sortType.equals("asc")){
-                    sort = new Sort(Sort.Direction.ASC, sortKey);
-                }
-                if(sortType.equals("desc")){
-                    sort = new Sort(Sort.Direction.DESC, sortKey);
-                }
-            }
-        }
-        return new PageRequest(page-1, count, sort);
+        atlasService.updateForForm(params);
+        return CommonUtil.response(true, "修改成功！");
     }
 
 }

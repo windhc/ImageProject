@@ -1,6 +1,9 @@
 package com.hc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * 图片类型
@@ -8,16 +11,17 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "tb_pictype")
+@JsonIgnoreProperties(value = {"tags"})
 public class PicType {
     @Id
     @GeneratedValue
     private Long id;
 
     @Column(nullable = false)
-    private String pictype;
+    private String typeName;
 
-//    @OneToMany(fetch = FetchType.LAZY,mappedBy="picType") //mappedBy 由Tag中的picType来维护级联关系
-//    private Set<Tag> tags;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "picType") //mappedBy 由Tag中的picType来维护级联关系
+    private List<Tag> tags;
 
     public Long getId() {
         return id;
@@ -27,12 +31,12 @@ public class PicType {
         this.id = id;
     }
 
-    public String getPictype() {
-        return pictype;
+    public String getTypeName() {
+        return typeName;
     }
 
-    public void setPictype(String pictype) {
-        this.pictype = pictype;
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
     }
 
 //    public Set<Tag> getTags() {

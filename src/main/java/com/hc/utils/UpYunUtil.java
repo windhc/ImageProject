@@ -24,7 +24,7 @@ public class UpYunUtil {
     }
 
     /**
-     * 得到UPYUN上文件保存路径，没有则按照年月创建
+     * 得到当前上传文件的保存路径，没有则按照年月创建
      * @return 文件保存的路径
      */
     public static String getUpYunFileSavePath(UpYun upYun){

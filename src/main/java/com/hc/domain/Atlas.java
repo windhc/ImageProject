@@ -1,5 +1,7 @@
 package com.hc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -9,6 +11,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "tb_atlas")
+@JsonIgnoreProperties(value={"pictures"})
 public class Atlas {
 
     @Id
@@ -31,6 +34,9 @@ public class Atlas {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "atlas")
+    private List<Picture> pictures;
 
     public User getUser() {
         return user;
@@ -80,11 +86,11 @@ public class Atlas {
         this.picType = picType;
     }
 
-    //    public Set<Picture> getPictures() {
-//        return pictures;
-//    }
-//
-//    public void setPictures(Set<Picture> pictures) {
-//        this.pictures = pictures;
-//    }
+    public List<Picture> getPictures() {
+        return pictures;
+    }
+
+    public void setPictures(List<Picture> pictures) {
+        this.pictures = pictures;
+    }
 }

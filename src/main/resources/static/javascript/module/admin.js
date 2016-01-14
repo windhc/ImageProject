@@ -2,20 +2,46 @@
  * Created by Administrator on 2015/8/8.
  */
 var ImageAdminApp = angular.module('ImageAdminApp', [
-    'ngRoute', 'admin.Atlas'
+    'common', 'ngRoute', 'admin.Atlas', 'admin.Picture', 'admin.PicType', 'admin.Tag', 'admin.User'
 ]);
 
 ImageAdminApp.config(['$routeProvider', function($routeProvider) {
-        $routeProvider.when('/atlas/index', {
-                templateUrl: '/module/atlas/index.html',
+    $routeProvider
+        .when('/picture/index', {
+            templateUrl: '/view/picture/index.html',
+            controller: 'PictureCtrl'
+        }).when('/atlas/index', {
+        templateUrl: '/view/atlas/index.html',
                 controller: 'AtlasCtrl'
             }).when('/atlas/add', {
-                templateUrl: '/module/atlas/add.html',
+        templateUrl: '/view/atlas/add.html',
                 controller: 'AtlasAddCtrl'
-            }).when('/atlas/add', {
-                templateUrl: '/module/atlas/add.html',
-                controller: 'AtlasAddCtrl'
-            }).otherwise({ redirectTo: '/atlas/index'});
+            }).when('/atlas/:id/detail', {
+        templateUrl: '/view/atlas/detail.html',
+                controller: 'AtlasDetailController'
+            }).when('/atlas/:id/edit', {
+        templateUrl: '/view/atlas/edit.html',
+                controller: 'AtlasEditController'
+    }).when('/pictype', {
+        templateUrl: '/view/pictype/index.html',
+        controller: 'PicTypeCtrl'
+    }).when('/pictype/add', {
+        templateUrl: '/view/pictype/add.html',
+        controller: 'PicTypeAddCtrl'
+    }).when('/tag', {
+        templateUrl: '/view/tag/index.html',
+        controller: 'TagCtrl'
+    }).when('/tag/add', {
+        templateUrl: '/view/tag/add.html',
+        controller: 'TagAddCtrl'
+    }).when('/user', {
+        templateUrl: '/view/user/index.html',
+        controller: 'UserCtrl'
+    }).when('/user/add', {
+            templateUrl: '/view/user/add.html',
+            controller: 'UserAddCtrl'
+        })
+        .otherwise({redirectTo: '/picture/index'});
     }]);
 
 ImageAdminApp.service('UserService', ['$http',
@@ -23,6 +49,9 @@ ImageAdminApp.service('UserService', ['$http',
         return {
             getPage: function() {
                 return $http.post("/picture/picturePage");
+            },
+            delete: function (id) {
+                return $http.get("/user/delete/" + id);
             }
         };
     }
@@ -37,6 +66,24 @@ ImageAdminApp.service('UserService', ['$http',
             },
             save: function(atlas) {
                 return $http.post("/atlas/save",atlas);
+            },
+            detail: function(id) {
+                return $http.get("/atlas/detail/" + id);
+            },
+            update: function(atlas) {
+                return $http.post("/atlas/update",atlas);
+            }
+
+        };
+    }
+]).service('PictureService', ['$http',
+    function($http) {
+        return {
+            getPictureByAtlasId: function(atlasid) {
+                return $http.get("/picture/byatlasid/"+atlasid);
+            },
+            delete: function(id) {
+                return $http.get("/picture/delete/" + id);
             }
         };
     }
@@ -45,6 +92,15 @@ ImageAdminApp.service('UserService', ['$http',
         return {
             listAll: function() {
                 return $http.get("/pictype/list");
+            },
+            save: function (pictype) {
+                return $http.post("/pictype/save", pictype);
+            },
+            delete: function (id) {
+                return $http.get("/pictype/delete/" + id);
+            },
+            update: function (pictype) {
+                return $http.post("/pictype/update", pictype);
             }
         };
     }
@@ -56,6 +112,18 @@ ImageAdminApp.service('UserService', ['$http',
             },
             findTagByPicTypeId: function(pictypeId) {
                 return $http.get("/tag/pictypetag/"+pictypeId);
+            },
+            findOne: function (id) {
+                return $http.get("/tag/" + id);
+            },
+            save: function (tag) {
+                return $http.post("/tag/save", tag);
+            },
+            delete: function (id) {
+                return $http.get("/tag/delete/" + id);
+            },
+            update: function (tag) {
+                return $http.post("/tag/update/", tag);
             }
         };
     }

@@ -28,6 +28,7 @@ public class UploadController {
         return fileStoreService.saveFile(request);
     }
 
+    //用于上传时删除
     @RequestMapping(value = "/delete/{filename:.*}", method = RequestMethod.GET)
     public String deleteUploadFile(@PathVariable("filename")String filename){
         UpYun upYun = UpYunUtil.getUpYun();

@@ -1,14 +1,17 @@
 package com.hc.web;
 
 import com.hc.domain.Picture;
+import com.hc.exception.ServiceException;
 import com.hc.service.PictureService;
 import com.hc.service.TagService;
+import com.hc.utils.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2015/9/5.
@@ -23,27 +26,32 @@ public class PictureController {
     @Autowired
     TagService tagService;
 
-    @RequestMapping(value = "/picturePage", method = RequestMethod.GET)
-    public Page<Picture> getAllPicture(int pageNumber, int pageSize) {
-
-//        PageRequest pageRequest = buildPageRequest(pageNumber, pageSize, sortType);
-
-        Page<Picture> pictures = pictureService.findAll(new PageRequest(pageNumber, pageSize));
-        return pictures;
+    @RequestMapping(value = "/byatlasid/{id}", method = RequestMethod.GET)
+    public List<Picture> getPictureByAtlasId(@PathVariable("id") long id) {
+        return pictureService.findPicturesByAtlasId(id);
     }
 
-    /**
-     * 创建分页请求.
-     */
-//    private PageRequest buildPageRequest(int pageNumber, int pagzSize, String sortType) {
-//        Sort sort = null;
-//        if ("auto".equals(sortType)) {
-//            sort = new Sort(Direction.DESC, "id");
-//        } else if ("title".equals(sortType)) {
-//            sort = new Sort(Direction.ASC, "title");
-//        }
-//
-//        return new PageRequest(pageNumber - 1, pagzSize, sort);
-//    }
+    @RequestMapping(value = "/picturePage", method = RequestMethod.GET)
+    public Page<Picture> getAllPicture(@RequestParam() Map pageParams) {
+        PageRequest pageRequest = CommonUtil.buildPageRequest(pageParams);
+        String filterValue = (String) pageParams.get("filter[picture]");
+        if (filterValue!=null){
+            return pictureService.findByPicpathLike("%" + filterValue + "%", pageRequest);
+        }
+        return pictureService.findAll(pageRequest);
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public Map delete(@PathVariable("id") long id){
+        boolean result = pictureService.delete(id);
+        return CommonUtil.response(result, result ? "删除成功" : "删除失败");
+    }
+
+    @ExceptionHandler(ServiceException.class)
+    public Map<String,Object> serviceExceptionHandler(ServiceException e) {
+        e.printStackTrace();
+        System.out.println("ServiceException");
+        return CommonUtil.response(false, e.getMessage());
+    }
 
 }

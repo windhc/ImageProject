@@ -59,4 +59,9 @@ public class FileStoreServiceImpl implements FileStoreService {
         filesReturn.put("files", files);
         return filesReturn;
     }
+
+    @Override
+    public boolean deleteUpYunFileByFilePath(String filepath) {
+        return false;
+    }
 }
