@@ -13,15 +13,54 @@
             <td data-title="'用户名'" filter="{ 'username': 'text' }" class="text-center">
                 {{user.username}}
             </td>
+            <td data-title="'邮箱'" class="text-center">
+                {{user.email}}
+            </td>
+            <td data-title="'角色'" sortable="'role'" class="text-center">
+                {{user.role=="ROLE_ADMIN"?"管理员":"用户"}}
+            </td>
             <td data-title="'添加时间'" sortable="'registerTime'" class="text-center">
                 {{user.registerTime | date:'yyyy-MM-dd HH:mm:ss'}}
             </td>
             <td data-title="'操作'" class="text-center">
-                <!--<a class="btn btn-default btn-xs" ng-click="showPopover(picture.id)">修改</a>-->
+                <a class="btn btn-default btn-xs" ng-click="updateShow(user.id)">修改</a>
                 <a ng-click=delete(user.id) class="btn btn-primary btn-xs">删除</a>
             </td>
         </tr>
 
     </table>
     <!--{{tableParams}}-->
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">修改用户信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-group">
+                        <label for="updateName">用户名</label>
+                        <input type="text" ng-model="user.username" class="form-control" id="updateName">
+                        <br>
+                        <label for="updateEmail">邮箱</label>
+                        <input type="text" ng-model="user.email" class="form-control" id="updateEmail">
+                        <br>
+                        <label for="updateRole">用户角色</label>
+                        <select ng-model="user.role" id="updateRole" class="form-control" required>
+                            <option value="ROLE_ADMIN">管理员</option>
+                            <option value="ROLE_USER">用户</option>
+                        </select>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-ng-click="update()">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>

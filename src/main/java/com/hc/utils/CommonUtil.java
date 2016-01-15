@@ -33,6 +33,10 @@ public class CommonUtil {
         return map;
     }
 
+    public static String now() {
+        return null;
+    }
+
     /**
      * 创建分页请求.
      */

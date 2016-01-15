@@ -2,10 +2,12 @@ package com.hc.service.impl;
 
 import com.hc.dao.UserRepository;
 import com.hc.domain.User;
+import com.hc.exception.ServiceException;
 import com.hc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -18,7 +20,12 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
 
     @Override
-    public User create(User user) {
+    public User createOrUpdate(User user) {
+        if (user.getId() == null) {
+            user.setRegisterTime(String.valueOf(System.currentTimeMillis()));
+            user.setEnabled(true);
+            user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        }
         return userRepository.save(user);
     }
 
@@ -50,5 +57,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public Page<User> findByUsernameLike(String s, PageRequest pageRequest) {
         return userRepository.findByUsernameLike(s, pageRequest);
+    }
+
+    @Override
+    public User updateUserPwd(User user, String oldPwd, String newPwd) {
+        if (!new BCryptPasswordEncoder().matches(oldPwd, user.getPassword())) {
+            throw new ServiceException("密码修改失败，原密码错误");
+        }
+        user.setPassword(new BCryptPasswordEncoder().encode(newPwd));
+        return userRepository.save(user);
     }
 }

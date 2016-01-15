@@ -1,0 +1,16 @@
+<div id="legend" class="">
+    <legend class="">修改密码</legend>
+</div>
+
+<form ng-submit="save()">
+    <div class="form-group">
+        <label for="oldPwd">原密码</label>
+        <input type="password" class="form-control" id="oldPwd" ng-model="pwds.oldPwd" placeholder="原密码" required>
+        <label for="pwd">新密码</label>
+        <input type="password" class="form-control" id="pwd" ng-model="pwds.newPwd" placeholder="新密码" required>
+        <label for="newPwdAgain">请确认</label>
+        <input type="password" class="form-control" id="newPwdAgain" ng-model="pwds.newPwdAgain" placeholder="确认一下"
+               required>
+    </div>
+    <button type="submit" class="btn btn-primary">保存</button>
+</form>

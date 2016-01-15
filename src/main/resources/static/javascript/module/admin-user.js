@@ -35,6 +35,20 @@ angular.module('admin.User', ['ngTable', 'ngResource'])
                     })
                 }
             };
+            $scope.user = {};
+            $scope.updateShow = function (id) {
+                UserService.findOne(id).success(function (data) {
+                    $scope.user = data
+                });
+                $('#myModal').modal('toggle');
+            };
+            $scope.update = function () {
+                UserService.update($scope.user).success(function (data) {
+                    AlertService.show(data.success, data.msg, 3000);
+                    $('#myModal').modal('toggle');
+                    return $scope.tableParams.reload();
+                })
+            }
         }
     ])
     .controller('UserAddCtrl', ['$scope', '$routeParams', '$modal', 'UserService', 'AlertService',

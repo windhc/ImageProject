@@ -9,7 +9,7 @@ import org.springframework.data.domain.PageRequest;
  */
 public interface UserService {
 
-    User create(User user);
+    User createOrUpdate(User user);
 
     User findUserById(long id);
 
@@ -22,4 +22,6 @@ public interface UserService {
     void deleteUser(long id);
 
     Page<User> findByUsernameLike(String s, PageRequest pageRequest);
+
+    User updateUserPwd(User user, String oldPwd, String newPwd);
 }

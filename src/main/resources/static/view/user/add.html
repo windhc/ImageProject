@@ -8,6 +8,13 @@
         <input type="text" class="form-control" id="username" ng-model="user.username" placeholder="用户名">
         <label for="pwd">密码</label>
         <input type="text" class="form-control" id="pwd" ng-model="user.password" placeholder="密码">
+        <label for="email">邮箱</label>
+        <input type="text" class="form-control" id="email" ng-model="user.email" placeholder="邮箱">
+        <label for="role-select">角色</label>
+        <select id="role-select" ng-model="user.role" class="form-control">
+            <option value="ROLE_USER">普通用户</option>
+            <option value="ROLE_ADMIN">管理员</option>
+        </select>
     </div>
     <button type="submit" class="btn btn-primary" data-ng-click="save()">添加</button>
 </form>

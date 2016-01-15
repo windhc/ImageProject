@@ -2,7 +2,7 @@
  * Created by Administrator on 2015/8/8.
  */
 var ImageAdminApp = angular.module('ImageAdminApp', [
-    'common', 'ngRoute', 'admin.Atlas', 'admin.Picture', 'admin.PicType', 'admin.Tag', 'admin.User'
+    'common', 'ngRoute', 'admin.Atlas', 'admin.Picture', 'admin.PicType', 'admin.Tag', 'admin.User', 'admin.System'
 ]);
 
 ImageAdminApp.config(['$routeProvider', function($routeProvider) {
@@ -40,6 +40,9 @@ ImageAdminApp.config(['$routeProvider', function($routeProvider) {
     }).when('/user/add', {
             templateUrl: '/view/user/add.html',
             controller: 'UserAddCtrl'
+    }).when('/pwd', {
+            templateUrl: '/view/system/pwd.html',
+            controller: 'PwdCtrl'
         })
         .otherwise({redirectTo: '/picture/index'});
     }]);
@@ -52,6 +55,15 @@ ImageAdminApp.service('UserService', ['$http',
             },
             delete: function (id) {
                 return $http.get("/user/delete/" + id);
+            },
+            save: function (user) {
+                return $http.post("/user/save", user);
+            },
+            findOne: function (id) {
+                return $http.get("/user/" + id);
+            },
+            update: function (user) {
+                return $http.post("/user/update", user);
             }
         };
     }
@@ -126,5 +138,13 @@ ImageAdminApp.service('UserService', ['$http',
                 return $http.post("/tag/update/", tag);
             }
         };
+    }
+]).service('SystemService', ['$http',
+    function ($http) {
+        return {
+            updatePwd: function (pwds) {
+                return $http.post("/admin/updateCurrentPwd", pwds);
+            }
+        }
     }
 ]);

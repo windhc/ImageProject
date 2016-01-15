@@ -35,4 +35,21 @@ public class UserController {
         userService.deleteUser(id);
         return CommonUtil.response(true, "用户删除成功");
     }
+
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public Map save(@RequestBody User user) {
+        userService.createOrUpdate(user);
+        return CommonUtil.response(true, "用户添加成功");
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public Map update(@RequestBody User user) {
+        userService.createOrUpdate(user);
+        return CommonUtil.response(true, "用户修改成功");
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public User findOne(@PathVariable("id") long id) {
+        return userService.findUserById(id);
+    }
 }
