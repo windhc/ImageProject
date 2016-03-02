@@ -6,6 +6,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface AtlasRepository extends PagingAndSortingRepository<Atlas, Long> {
 
@@ -13,4 +15,7 @@ public interface AtlasRepository extends PagingAndSortingRepository<Atlas, Long>
 
     Page<Atlas> findByAtlasLike(String atlas, Pageable pageable);
 
+    Page<Atlas> findByPicTypeId(long typeId, Pageable pageable);
+
+    Page<Atlas> findByTagsIn(List tagIds, Pageable pageable);
 }

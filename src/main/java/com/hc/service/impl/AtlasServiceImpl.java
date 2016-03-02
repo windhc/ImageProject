@@ -4,12 +4,12 @@ import com.hc.dao.AtlasRepository;
 import com.hc.dao.PicTypeRepository;
 import com.hc.dao.TagRepository;
 import com.hc.domain.Atlas;
-import com.hc.domain.PicType;
 import com.hc.domain.Picture;
 import com.hc.domain.Tag;
 import com.hc.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -97,7 +97,6 @@ public class AtlasServiceImpl implements AtlasService {
         atlas.setAtlas(name);
         atlas.setPicType(picTypeService.findOne(pictypeId));
         atlas.setAddtime(String.valueOf(System.currentTimeMillis()));
-        atlasRepository.save(atlas);
 
         for (String picpath : filenames){
             Picture picture = new Picture();
@@ -105,7 +104,11 @@ public class AtlasServiceImpl implements AtlasService {
             picture.setAtlas(atlas);
             picture.setAddtime(String.valueOf(System.currentTimeMillis()));
             pictureService.save(picture);
+            if (filenames.get(0).equals(picpath)) {
+                atlas.setFrontCover(picpath);
+            }
         }
+        atlasRepository.save(atlas);
         return atlas;
     }
 
@@ -131,7 +134,6 @@ public class AtlasServiceImpl implements AtlasService {
         atlas.setTags(tags);
         atlas.setAtlas(name);
         atlas.setPicType(picTypeService.findOne(pictypeId));
-        atlasRepository.save(atlas);
 
         for (String picpath : filenames){
             Picture picture = new Picture();
@@ -139,7 +141,26 @@ public class AtlasServiceImpl implements AtlasService {
             picture.setAtlas(atlas);
             picture.setAddtime(String.valueOf(System.currentTimeMillis()));
             pictureService.save(picture);
+            if (filenames.get(0).equals(picpath)) {
+                atlas.setFrontCover(picpath);
+            }
         }
+        atlasRepository.save(atlas);
         return atlas;
+    }
+
+    @Override
+    public Page<Atlas> findByPicType(long typeId, Pageable pageable) {
+        return atlasRepository.findByPicTypeId(typeId, pageable);
+    }
+
+    @Override
+    public Page<Atlas> findByTagIds(List<Long> tagIds, PageRequest pageRequest) {
+
+        List<Tag> tags = new ArrayList<>();
+        for(long tagId : tagIds) {
+            tags.add(tagService.findOne(tagId));
+        }
+        return atlasRepository.findByTagsIn(tags, pageRequest);
     }
 }

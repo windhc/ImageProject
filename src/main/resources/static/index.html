@@ -7,57 +7,76 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="http://v3.bootcss.com/favicon.ico">
-
-    <title>Index</title>
-
+    <meta name="description" content="动漫风景美女图片">
+    <link rel="icon" href="/images/index.ico">
+    <title>图片首页</title>
     <!-- Bootstrap core CSS -->
     <link href="/vendor/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Custom styles for this template -->
-    <link href="/css/starter-template.css" rel="stylesheet">
+    <link href="/css/index.css" rel="stylesheet">
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 </head>
 
-<body>
+<body ng-app="ImageApp"  data-ng-controller="ImageCtrl">
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Project name</a>
+            <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">-->
+                <!--<span class="sr-only">Toggle navigation</span>-->
+                <!--<span class="icon-bar"></span>-->
+                <!--<span class="icon-bar"></span>-->
+                <!--<span class="icon-bar"></span>-->
+            <!--</button>-->
+            <a class="navbar-brand" href="javascript:window.location.href='/'">美图工场</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="./#about">About</a></li>
-                <li><a href="./#contact">Contact</a></li>
+                <li data-ng-repeat="type in types" data-ng-click="selectType(type.id)" id="{{type.id}}">
+                    <a href="#index/type/{{type.id}}">{{type.typeName}}</a>
+                </li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
 </nav>
-
 <div class="container">
+    <div class="col-md-12 tag">
+        <span class="span-tag" data-ng-repeat="tag in tags">
+            <a class="label label-default" data-ng-click="tagClick(tag.id)" id="{{tag.id}}">{{tag.tagName}}</a>
+        </span>
+    </div>
 
-    <div class="starter-template">
-        <h1>Bootstrap starter template</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+    <div class="col-md-12">
+        <div class="col-md-3 index-img" data-ng-repeat="atlas in atlases.content">
+            <div><img src="{{atlas.frontCover}}" alt="" width="85%" height="300px"></div>
+            <div>{{atlas.atlas}}</div>
+        </div>
+        <div class="col-md-3 index-img" >
+        </div>
+        <div class="col-md-3 index-img" >
+        </div>
+
+        <br style="clear: both">
+        <nav>
+            <ul class="pagination">
+                <li>
+                    <a data-ng-click="getPage(1)" aria-label="First">
+                        <span aria-hidden="true">首页</span>
+                    </a>
+                </li>
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li>
+                    <a data-ng-click="getPage(atlases.totalPages)" aria-label="Last">
+                        <span aria-hidden="true">末页</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
 
 </div><!-- /.container -->
-
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
@@ -66,6 +85,27 @@
 <script src="/vendor/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="/javascript/utils/ie10-viewport-bug-workaround.js"></script>
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+<script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<!--<script src="/javascript/module/admin.js"></script>-->
+<script src="/vendor/angular-1.3.15/angular.min.js"></script>
+<script src="/vendor/angular-1.3.15/angular-route.min.js"></script>
+<script src="/vendor/angular-1.3.15/angular-resource.min.js"></script>
+<script src="/vendor/angular-1.3.15/angular-animate.min.js"></script>
+<script src="/vendor/angular-1.3.15/angular-mocks.js"></script>
 
+<script src="/vendor/ng-table/ng-table.min.js"></script>
+<link href="/vendor/ng-table/ng-table.min.css" rel="stylesheet">
+<script src="/vendor/ui-bootstrap-0.14.0.min.js"></script>
 
-</body></html>
+<script src="/javascript/module/common.js"></script>
+<script src="/javascript/module/index.js"></script>
+<script src="/javascript/module/index-main.js"></script>
+
+<!--<script src="/javascript/app.js"></script>-->
+
+</body>
+</html>

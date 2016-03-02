@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "tb_atlas")
-@JsonIgnoreProperties(value={"pictures"})
+@JsonIgnoreProperties(value = {"pictures"})
 public class Atlas {
 
     @Id
@@ -20,6 +20,8 @@ public class Atlas {
 
     @Column(nullable = false)
     private String atlas;
+
+    private String frontCover;
 
     @Column(nullable = false)
     private String addtime;
@@ -60,6 +62,14 @@ public class Atlas {
 
     public void setAtlas(String atlas) {
         this.atlas = atlas;
+    }
+
+    public String getFrontCover() {
+        return frontCover;
+    }
+
+    public void setFrontCover(String frontCover) {
+        this.frontCover = frontCover;
     }
 
     public List<Tag> getTags() {

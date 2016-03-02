@@ -1,5 +1,7 @@
 package com.hc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 /**
@@ -8,6 +10,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "tb_user")
+@JsonIgnoreProperties(value = {"password"})
 public class User {
     @Id
     @GeneratedValue

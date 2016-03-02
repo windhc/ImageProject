@@ -18,7 +18,7 @@
         <div class="col-sm-10">
             <select class="form-control" id="inputType" ng-model="atlas.pictype" ng-change="getPictypeTag(atlas.pictype)"
                     required>
-                <option ng-repeat="item in picTypeList" value={{item.id}}>{{item.pictype}}</option>
+                <option ng-repeat="item in picTypeList" value={{item.id}}>{{item.typeName}}</option>
             </select>
         </div>
     </div>

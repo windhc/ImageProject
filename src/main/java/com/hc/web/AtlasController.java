@@ -1,18 +1,14 @@
 package com.hc.web;
 
 import com.hc.domain.Atlas;
-import com.hc.domain.Picture;
 import com.hc.domain.Tag;
-import com.hc.service.*;
+import com.hc.service.AtlasService;
 import com.hc.utils.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -56,8 +52,12 @@ public class AtlasController {
 
         PageRequest pageRequest = CommonUtil.buildPageRequest(pageParams);
         String filterValue = (String) pageParams.get("filter[atlas]");
-        if (filterValue!=null){
+        Object typeId = pageParams.get("type");
+        if (!StringUtils.isEmpty(filterValue)){
             return atlasService.findByAtlasName("%" + filterValue + "%", pageRequest);
+        }
+        if (typeId != null){
+            return atlasService.findByPicType(Long.parseLong(String.valueOf(typeId)), pageRequest);
         }
         return atlasService.findAll(pageRequest);
     }
@@ -68,6 +68,27 @@ public class AtlasController {
 
         atlasService.updateForForm(params);
         return CommonUtil.response(true, "修改成功！");
+    }
+
+    //前端相册分页获取
+    @RequestMapping(value = "/front/atlasPage", method = RequestMethod.GET)
+    public Page<Atlas> getPictures(@RequestParam() Map pageParams) {
+        PageRequest pageRequest = CommonUtil.buildPageRequest(pageParams);
+        Object typeId = pageParams.get("type");
+        Object tag = pageParams.get("tag");
+        if (typeId != null){
+            return atlasService.findByPicType(Long.parseLong(String.valueOf(typeId)), pageRequest);
+        }
+        if (tag != null){
+            char[] chars = String.valueOf(tag).toCharArray();
+            List<Long> tagIds = new ArrayList<>();
+            for (char c : chars) {
+//                System.out.println(Integer.valueOf(String.valueOf(c)));
+                tagIds.add(Long.valueOf(String.valueOf(c)));
+            }
+            return atlasService.findByTagIds(tagIds, pageRequest);
+        }
+        return atlasService.findAll(pageRequest);
     }
 
 }

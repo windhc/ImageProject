@@ -1,9 +1,9 @@
 package com.hc.service;
 
 import com.hc.domain.Atlas;
-import com.hc.domain.PicType;
 import com.hc.domain.Tag;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -54,4 +54,14 @@ public interface AtlasService {
     Atlas findOne(long id);
 
     Atlas updateForForm(Map<String, Object> params);
+
+    Page<Atlas> findByPicType(long typeId, Pageable pageable);
+
+    /**
+     * 根据tagIds来查找图册，并分页
+     * @param tagIds
+     * @param pageRequest
+     * @return
+     */
+    Page<Atlas> findByTagIds(List<Long> tagIds, PageRequest pageRequest);
 }
