@@ -74,7 +74,7 @@ angular.module('admin.Atlas', ['ngTable', 'ngResource', 'blueimp.fileupload'])
                 url: '/web/upload'
             };
             $scope.loadingFiles = false;
-
+            //$scope.queue = [{url:"111111",name:"sssss"}]
             $scope.save = function(queue) {
                 $scope.atlas.files = [];
                 for(var i=0;i<queue.length;i++){
@@ -82,6 +82,10 @@ angular.module('admin.Atlas', ['ngTable', 'ngResource', 'blueimp.fileupload'])
                 }
                 var promise = AtlasService.save($scope.atlas);
                 AlertService.defaultHandle(promise, true);
+            };
+
+            $scope.getQu = function () {
+                console.log($scope.queue)
             }
         }
     ])

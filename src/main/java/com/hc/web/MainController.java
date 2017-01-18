@@ -36,7 +36,7 @@ public class MainController {
     Map info() {
         String username = CommonUtil.getCurrentUserName();
         User user = userService.findUserByUsername(username);
-        Map map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         map.put("username", username);
         map.put("role", user.getRole());
         return map;
