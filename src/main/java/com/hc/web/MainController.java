@@ -23,7 +23,7 @@ public class MainController {
     private final static Logger log = LoggerFactory.getLogger(MainController.class);
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String main(){
@@ -31,21 +31,19 @@ public class MainController {
     }
 
     @RequestMapping(value = "/info", method = RequestMethod.GET)
-    public
     @ResponseBody
-    Map info() {
+    public Map info() {
         String username = CommonUtil.getCurrentUserName();
         User user = userService.findUserByUsername(username);
-        Map map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         map.put("username", username);
         map.put("role", user.getRole());
         return map;
     }
 
     @RequestMapping(value = "/updateCurrentPwd", method = RequestMethod.POST)
-    public
     @ResponseBody
-    Map updateCurrentUserPwd(@RequestBody Map<String, String> params) {
+    public Map updateCurrentUserPwd(@RequestBody Map<String, String> params) {
         if (params.size() != 3) {
             return CommonUtil.response(false, "密码修改失败,参数不全");
         }
@@ -63,9 +61,8 @@ public class MainController {
 
     //-------------handleException-------------
     @ExceptionHandler(ServiceException.class)
-    public
     @ResponseBody
-    Map<String, Object> serviceExceptionHandler(ServiceException e) {
+    public Map<String, Object> serviceExceptionHandler(ServiceException e) {
         return CommonUtil.response(false, e.getMessage());
     }
 
