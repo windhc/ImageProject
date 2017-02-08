@@ -4,13 +4,12 @@ import com.hc.exception.ServiceException;
 import com.hc.service.FileStoreService;
 import com.hc.utils.UpYunUtil;
 import main.java.com.UpYun;
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartRequest;
 
-import java.io.File;
-import java.util.*;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by Administrator on 2015/9/20.
@@ -20,7 +19,7 @@ import java.util.*;
 public class UploadController {
 
     @Autowired
-    FileStoreService fileStoreService;
+    private FileStoreService fileStoreService;
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public Map<String,Object> index(MultipartRequest request){
