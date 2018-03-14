@@ -16,14 +16,15 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Administrator on 2015/9/5.
+ * @author Administrator
+ * @date 2015/9/5
  */
 @RestController
 @RequestMapping("/atlas")
 public class AtlasController {
 
     @Autowired
-    AtlasService atlasService;
+    private AtlasService atlasService;
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public void delete(@PathVariable("id") long id){
@@ -70,7 +71,9 @@ public class AtlasController {
         return CommonUtil.response(true, "修改成功！");
     }
 
-    //前端相册分页获取
+    /**
+     * 前端相册分页获取
+     */
     @RequestMapping(value = "/front/atlasPage", method = RequestMethod.GET)
     public Page<Atlas> getPictures(@RequestParam() Map pageParams) {
         PageRequest pageRequest = CommonUtil.buildPageRequest(pageParams);
@@ -83,7 +86,6 @@ public class AtlasController {
             char[] chars = String.valueOf(tag).toCharArray();
             List<Long> tagIds = new ArrayList<>();
             for (char c : chars) {
-//                System.out.println(Integer.valueOf(String.valueOf(c)));
                 tagIds.add(Long.valueOf(String.valueOf(c)));
             }
             return atlasService.findByTagIds(tagIds, pageRequest);

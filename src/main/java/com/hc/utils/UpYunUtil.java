@@ -1,11 +1,14 @@
 package com.hc.utils;
 
 import main.java.com.UpYun;
+import main.java.com.upyun.UpException;
 
+import java.io.IOException;
 import java.util.Calendar;
 
 /**
- * Created by Administrator on 2015/9/26.
+ * @author Administrator
+ * @date 2015/9/26
  */
 public class UpYunUtil {
 
@@ -31,8 +34,12 @@ public class UpYunUtil {
         Calendar now = Calendar.getInstance();
         String path = "/"+now.get(Calendar.YEAR)+"/"+(now.get(Calendar.MONTH)+1)+"/";
         // 创建目录，自动创建父级目录
-        if(upYun.mkDir(path, true)){
-            return path;
+        try {
+            if(upYun.mkDir(path, true)){
+                return path;
+            }
+        } catch (IOException | UpException e) {
+            e.printStackTrace();
         }
         return null;
     }

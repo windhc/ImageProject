@@ -14,17 +14,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Administrator on 2015/9/5.
+ * @author Administrator
+ * @date 2015/9/5
  */
 @RestController
 @RequestMapping("/picture")
 public class PictureController {
 
     @Autowired
-    PictureService pictureService;
+    private PictureService pictureService;
 
     @Autowired
-    TagService tagService;
+    private TagService tagService;
 
     @RequestMapping(value = "/byatlasid/{id}", method = RequestMethod.GET)
     public List<Picture> getPictureByAtlasId(@PathVariable("id") long id) {

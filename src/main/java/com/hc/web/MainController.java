@@ -14,23 +14,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Administrator on 2015/7/26.
+ * @author Administrator
+ * @date 2015/7/26
  */
 @Controller
 @RequestMapping("/admin")
 public class MainController {
 
-    private final static Logger log = LoggerFactory.getLogger(MainController.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(MainController.class);
 
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @GetMapping(value = "")
     public String main(){
         return "/view/admin/main.html";
     }
 
-    @RequestMapping(value = "/info", method = RequestMethod.GET)
+    @GetMapping(value = "/info")
     @ResponseBody
     public Map info() {
         String username = CommonUtil.getCurrentUserName();
@@ -41,7 +42,7 @@ public class MainController {
         return map;
     }
 
-    @RequestMapping(value = "/updateCurrentPwd", method = RequestMethod.POST)
+    @PostMapping(value = "/updateCurrentPwd")
     @ResponseBody
     public Map updateCurrentUserPwd(@RequestBody Map<String, String> params) {
         if (params.size() != 3) {
@@ -59,7 +60,11 @@ public class MainController {
         return CommonUtil.response(true, "密码修改成功");
     }
 
-    //-------------handleException-------------
+    /**
+     * -------------handleException-------------
+     * @param e exception
+     * @return map
+     */
     @ExceptionHandler(ServiceException.class)
     @ResponseBody
     public Map<String, Object> serviceExceptionHandler(ServiceException e) {

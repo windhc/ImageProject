@@ -10,16 +10,17 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Administrator on 2015/9/26.
+ * @author Administrator
+ * @date 2015/9/26
  */
 @RestController
 @RequestMapping(value = "/pictype")
 public class PicTypeController {
 
     @Autowired
-    PicTypeService picTypeService;
+    private PicTypeService picTypeService;
 
-    @RequestMapping(value = "/list",method = RequestMethod.GET)
+    @GetMapping(value = "/list")
     public List<PicType> getAll(){
         return picTypeService.getAll();
     }

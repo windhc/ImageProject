@@ -10,14 +10,15 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Administrator on 2015/9/27.
+ * @author Administrator
+ * @date 2015/9/27
  */
 @RestController
 @RequestMapping(value = "/tag")
 public class TagController {
 
     @Autowired
-    TagService tagService;
+    private TagService tagService;
 
     @RequestMapping(value = "/listTagAll",method = RequestMethod.GET)
     public List<Tag> getPicTypeAll(){
