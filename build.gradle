@@ -28,6 +28,7 @@ repositories {
     maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
     mavenCentral()
 }
+
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-security")
@@ -36,8 +37,6 @@ dependencies {
     compile("commons-io:commons-io:2.4")
     compile("net.coobird:thumbnailator:[0.4, 0.5)")
     compile("com.upyun:java-sdk:3.1")
-
-    //    compile fileTree(include: ['*.jar'], dir: 'lib')
 
     runtime("mysql:mysql-connector-java")
     testCompile("org.springframework.boot:spring-boot-starter-test")
