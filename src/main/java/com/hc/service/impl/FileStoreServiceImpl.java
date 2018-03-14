@@ -4,7 +4,6 @@ import com.hc.exception.ServiceException;
 import com.hc.service.FileStoreService;
 import com.hc.utils.UpYunUtil;
 import main.java.com.UpYun;
-import net.coobird.thumbnailator.Thumbnails;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -12,7 +11,6 @@ import org.springframework.web.multipart.MultipartRequest;
 
 import javax.transaction.Transactional;
 import java.io.File;
-import java.io.IOException;
 import java.util.*;
 
 /**
@@ -33,7 +31,8 @@ public class FileStoreServiceImpl implements FileStoreService {
             MultipartFile file = request.getFile(name);
             String saveFilename = System.currentTimeMillis()+"-"+file.getOriginalFilename();
             File targetFile = new File(uploadPath + saveFilename);
-            UpYun upYun = UpYunUtil.getUpYun(); //得到UpYun实例
+            // 得到UpYun实例
+            UpYun upYun = UpYunUtil.getUpYun();
             try{
                 file.transferTo(targetFile);
                 upYun .setContentMD5(UpYun.md5(targetFile));

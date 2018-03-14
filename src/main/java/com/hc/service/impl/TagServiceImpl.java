@@ -5,24 +5,24 @@ import com.hc.domain.Tag;
 import com.hc.exception.ServiceException;
 import com.hc.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 /**
- * Created by Administrator on 2015/9/5.
+ *
+ * @author Administrator
+ * @date 2015/9/5
  */
-@Component("tagService")
-@Transactional
+@Service
 public class TagServiceImpl implements TagService {
 
     @Autowired
-    TagRepository tagRepository;
+    private TagRepository tagRepository;
 
     @Override
     public List<Tag> findAll() {
-        return (List<Tag>) tagRepository.findAll();
+        return tagRepository.findAll();
     }
 
     @Override

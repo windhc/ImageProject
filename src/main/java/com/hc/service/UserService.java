@@ -5,7 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 /**
- * Created by Administrator on 2015/8/24.
+ * @author Administrator
+ * @date 2015/8/24
  */
 public interface UserService {
 

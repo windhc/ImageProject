@@ -17,7 +17,7 @@ import java.util.List;
 public class PicTypeServiceImpl implements PicTypeService {
 
     @Autowired
-    PicTypeRepository picTypeRepository;
+    private PicTypeRepository picTypeRepository;
 
     @Override
     public List<PicType> getAll() {

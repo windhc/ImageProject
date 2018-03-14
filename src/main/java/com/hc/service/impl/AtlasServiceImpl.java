@@ -28,25 +28,25 @@ import java.util.Map;
 public class AtlasServiceImpl implements AtlasService {
 
     @Autowired
-    TagRepository tagRepository;
+    private TagRepository tagRepository;
 
     @Autowired
-    AtlasRepository atlasRepository;
+    private AtlasRepository atlasRepository;
 
     @Autowired
-    PicTypeRepository picTypeRepository;
+    private PicTypeRepository picTypeRepository;
 
     @Autowired
-    PictureService pictureService;
+    private PictureService pictureService;
 
     @Autowired
-    PicTypeService picTypeService;
+    private PicTypeService picTypeService;
 
     @Autowired
-    TagService tagService;
+    private TagService tagService;
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Override
     public void delete(long id) {

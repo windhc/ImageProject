@@ -5,7 +5,8 @@ import com.hc.domain.Tag;
 import java.util.List;
 
 /**
- * Created by Administrator on 2015/9/5.
+ * @author Administrator
+ * @date 2015/9/5
  */
 public interface TagService {
 

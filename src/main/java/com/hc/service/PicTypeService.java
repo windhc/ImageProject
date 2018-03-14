@@ -5,7 +5,8 @@ import com.hc.domain.PicType;
 import java.util.List;
 
 /**
- * Created by Administrator on 2015/9/26.
+ * @author Administrator
+ * @date 2015/9/26
  */
 public interface PicTypeService {
 
