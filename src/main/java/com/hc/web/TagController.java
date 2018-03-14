@@ -20,34 +20,34 @@ public class TagController {
     @Autowired
     private TagService tagService;
 
-    @RequestMapping(value = "/listTagAll",method = RequestMethod.GET)
+    @GetMapping(value = "/listTagAll")
     public List<Tag> getPicTypeAll(){
         return tagService.findAll();
     }
 
-    @RequestMapping(value = "/pictypetag/{pictypeId}",method = RequestMethod.GET)
+    @GetMapping(value = "/pictypetag/{pictypeId}")
     public List<Tag> getPicTypeTag(@PathVariable("pictypeId") long picTypeId){
         return tagService.findByPicTypeId(picTypeId);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     public Tag findOne(@PathVariable("id") long id) {
         return tagService.findOne(id);
     }
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @PostMapping(value = "/save")
     public Map save(@RequestBody Tag tag) {
         tagService.save(tag);
         return CommonUtil.response(true, "标签添加成功");
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/delete/{id}")
     public Map delete(@PathVariable("id") long id) {
         tagService.delete(id);
         return CommonUtil.response(true, "标签删除成功");
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @PostMapping(value = "/update")
     public Map update(@RequestBody Tag tag) {
         tagService.save(tag);
         return CommonUtil.response(true, "标签修改成功");

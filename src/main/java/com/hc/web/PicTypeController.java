@@ -25,19 +25,19 @@ public class PicTypeController {
         return picTypeService.getAll();
     }
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @PostMapping(value = "/save")
     public Map save(@RequestBody PicType picType) {
         picTypeService.save(picType);
         return CommonUtil.response(true, "分类添加成功");
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @PostMapping(value = "/update")
     public Map update(@RequestBody PicType picType) {
         picTypeService.save(picType);
         return CommonUtil.response(true, "分类更新成功");
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/delete/{id}")
     public Map save(@PathVariable("id") long id) {
         picTypeService.delete(id);
         return CommonUtil.response(true, "分类删除成功");

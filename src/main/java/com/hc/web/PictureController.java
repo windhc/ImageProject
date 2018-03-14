@@ -27,12 +27,12 @@ public class PictureController {
     @Autowired
     private TagService tagService;
 
-    @RequestMapping(value = "/byatlasid/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/byatlasid/{id}")
     public List<Picture> getPictureByAtlasId(@PathVariable("id") long id) {
         return pictureService.findPicturesByAtlasId(id);
     }
 
-    @RequestMapping(value = "/picturePage", method = RequestMethod.GET)
+    @GetMapping(value = "/picturePage")
     public Page<Picture> getAllPicture(@RequestParam() Map pageParams) {
         PageRequest pageRequest = CommonUtil.buildPageRequest(pageParams);
         String filterValue = (String) pageParams.get("filter[picture]");
@@ -42,7 +42,7 @@ public class PictureController {
         return pictureService.findAll(pageRequest);
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/delete/{id}")
     public Map delete(@PathVariable("id") long id){
         boolean result = pictureService.delete(id);
         return CommonUtil.response(result, result ? "删除成功" : "删除失败");
