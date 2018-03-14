@@ -11,7 +11,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
- * Created by Administrator on 2015/10/6.
+ * @author Administrator
+ * @date 2015/10/6
  */
 @Service
 public class UserServiceImpl implements UserService {
@@ -31,7 +32,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserById(long id) {
-        return userRepository.findOne(id);
+        return userRepository.findById(id).orElseThrow(ServiceException::new);
     }
 
     @Override
@@ -51,7 +52,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(long id) {
-        userRepository.delete(id);
+        userRepository.deleteById(id);
     }
 
     @Override

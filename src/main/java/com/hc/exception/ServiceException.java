@@ -1,9 +1,11 @@
 package com.hc.exception;
 
 /**
- * Created by Administrator on 2015/9/22.
+ * @author Administrator
+ * @date 2015/9/22
  */
 public class ServiceException extends RuntimeException {
+
     public ServiceException() {
         super();
     }

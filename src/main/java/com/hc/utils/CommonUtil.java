@@ -65,7 +65,7 @@ public class CommonUtil {
                 }
             }
         }
-        return new PageRequest(page-1, count, sort);
+        return PageRequest.of(page-1, count, sort);
     }
 
     public static boolean isNotNull(Object value) {

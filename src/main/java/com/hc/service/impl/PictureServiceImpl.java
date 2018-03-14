@@ -1,7 +1,6 @@
 package com.hc.service.impl;
 
 import com.hc.dao.PictureRepository;
-import com.hc.dao.TagRepository;
 import com.hc.domain.Picture;
 import com.hc.exception.ServiceException;
 import com.hc.service.PictureService;
@@ -47,11 +46,12 @@ public class PictureServiceImpl implements PictureService {
 
     @Override
     public Boolean delete(long id) {
-        String picpath = pictureRepository.findOne(id).getPicpath();
-        picpath = picpath.substring(picpath.lastIndexOf("http://imagestore.b0.upaiyun.com")+32);
-        pictureRepository.delete(id);
+        Picture picture = pictureRepository.findById(id).orElseThrow(ServiceException::new);
+        String picPath = picture.getPicpath();
+        picPath = picPath.substring(picPath.lastIndexOf("http://imagestore.b0.upaiyun.com")+32);
+        pictureRepository.deleteById(id);
         try {
-            return UpYunUtil.getUpYun().deleteFile(picpath);
+            return UpYunUtil.getUpYun().deleteFile(picPath);
         } catch (Exception e){
             throw new ServiceException("删除文件出错");
         }
@@ -59,6 +59,6 @@ public class PictureServiceImpl implements PictureService {
 
     @Override
     public Picture findOne(long id) {
-        return pictureRepository.findOne(id);
+        return pictureRepository.findById(id).orElseThrow(ServiceException::new);
     }
 }

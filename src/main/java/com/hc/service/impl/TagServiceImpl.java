@@ -2,6 +2,7 @@ package com.hc.service.impl;
 
 import com.hc.dao.TagRepository;
 import com.hc.domain.Tag;
+import com.hc.exception.ServiceException;
 import com.hc.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -31,7 +32,7 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public Tag findOne(long id) {
-        return tagRepository.findOne(id);
+        return tagRepository.findById(id).orElseThrow(ServiceException::new);
     }
 
     @Override
@@ -41,7 +42,7 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public void delete(long id) {
-        tagRepository.delete(id);
+        tagRepository.deleteById(id);
     }
 
 }

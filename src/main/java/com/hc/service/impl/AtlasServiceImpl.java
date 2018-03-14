@@ -6,6 +6,7 @@ import com.hc.dao.TagRepository;
 import com.hc.domain.Atlas;
 import com.hc.domain.Picture;
 import com.hc.domain.Tag;
+import com.hc.exception.ServiceException;
 import com.hc.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,18 +14,17 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Administrator on 2015/9/5.
+ * @author Administrator
+ * @date 2015/9/5
  */
-@Component("atlasService")
-@Transactional
+@Service
 public class AtlasServiceImpl implements AtlasService {
 
     @Autowired
@@ -54,12 +54,12 @@ public class AtlasServiceImpl implements AtlasService {
         pictures.stream().forEach( picture -> {
             pictureService.delete(picture.getId());
         });
-        atlasRepository.delete(id);
+        atlasRepository.deleteById(id);
     }
 
     @Override
     public List<Tag> atlasTag(long atlasId) {
-        Atlas atlas = atlasRepository.findOne(atlasId);
+        Atlas atlas = atlasRepository.findById(atlasId).orElseThrow(ServiceException::new);
         return null;
     }
 
@@ -114,7 +114,7 @@ public class AtlasServiceImpl implements AtlasService {
 
     @Override
     public Atlas findOne(long id) {
-        return atlasRepository.findOne(id);
+        return atlasRepository.findById(id).orElseThrow(ServiceException::new);
     }
 
     @Override
@@ -126,7 +126,7 @@ public class AtlasServiceImpl implements AtlasService {
         List<Integer> tagIds = (List<Integer>) params.get("tagIds");
         List<String> filenames = (List<String>) params.get("files");
 
-        Atlas atlas = atlasRepository.findOne(atlasId);
+        Atlas atlas = atlasRepository.findById(atlasId).orElseThrow(ServiceException::new);
         List<Tag> tags = new ArrayList<>();
         for (Integer tagId : tagIds){
             tags.add(tagService.findOne(tagId));
