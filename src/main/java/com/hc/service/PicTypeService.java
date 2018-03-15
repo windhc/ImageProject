@@ -1,6 +1,10 @@
 package com.hc.service;
 
+import com.hc.dao.PicTypeRepository;
 import com.hc.domain.PicType;
+import com.hc.exception.ServiceException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -8,14 +12,27 @@ import java.util.List;
  * @author Administrator
  * @date 2015/9/26
  */
-public interface PicTypeService {
+@Service
+public class PicTypeService {
 
-    List<PicType> getAll();
+    @Autowired
+    private PicTypeRepository picTypeRepository;
 
-    PicType findOne(long id);
+    public List<PicType> getAll() {
+        return picTypeRepository.findAll();
+    }
 
-    PicType save(PicType picType);
+    public PicType findOne(long id) {
+        return picTypeRepository.findById(id).orElseThrow(ServiceException::new);
+    }
 
-    void delete(long id);
+    public PicType save(PicType picType) {
+        return picTypeRepository.save(picType);
+    }
+
+    public void delete(long id) {
+        picTypeRepository.deleteById(id);
+    }
 
 }
+

@@ -1,69 +1,152 @@
 package com.hc.service;
 
+import com.hc.dao.AtlasRepository;
+import com.hc.dao.PicTypeRepository;
+import com.hc.dao.TagRepository;
 import com.hc.domain.Atlas;
+import com.hc.domain.Picture;
 import com.hc.domain.Tag;
+import com.hc.exception.ServiceException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 /**
- *
  * @author Administrator
  * @date 2015/9/5
  */
-public interface AtlasService {
+@Service
+public class AtlasService {
 
-    /**
-     * 删除图册
-     * @param id 要删除的图册ID
-     */
-    void delete(long id);
+    @Autowired
+    private TagRepository tagRepository;
 
-    /**
-     * 根据图册ID获得图册标签
-     * @param atlasId 图册ID
-     * @return 该图册的所有标签
-     */
-    List<Tag> atlasTag(long atlasId);
+    @Autowired
+    private AtlasRepository atlasRepository;
 
-    /**
-     * 分页得到所有的图册
-     * @param pageable 分页参数
-     * @return 图册分页
-     */
-    Page<Atlas> findAll(Pageable pageable);
+    @Autowired
+    private PicTypeRepository picTypeRepository;
 
-    /**
-     * 根据图册名称模糊查询
-     * @param atlasname 图册名称模糊查询参数
-     * @param pageable 分页参数
-     * @return 模糊查询所得图册分页
-     */
-    Page<Atlas> findByAtlasName(String atlasname, Pageable pageable);
+    @Autowired
+    private PictureService pictureService;
 
-    /**
-     * 保存图册
-     * @param atlas
-     * @return 所保存的图册
-     */
-    Atlas save(Atlas atlas);
+    @Autowired
+    private PicTypeService picTypeService;
 
-    Atlas saveForForm(Map<String,Object> params);
+    @Autowired
+    private TagService tagService;
 
-    Atlas findOne(long id);
+    @Autowired
+    private UserService userService;
 
-    Atlas updateForForm(Map<String, Object> params);
+    public void delete(long id) {
+        List<Picture> pictures = pictureService.findPicturesByAtlasId(id);
+        pictures.stream().forEach( picture -> {
+            pictureService.delete(picture.getId());
+        });
+        atlasRepository.deleteById(id);
+    }
 
-    Page<Atlas> findByPicType(long typeId, Pageable pageable);
+    public List<Tag> atlasTag(long atlasId) {
+        Atlas atlas = atlasRepository.findById(atlasId).orElseThrow(ServiceException::new);
+        return null;
+    }
 
-    /**
-     * 根据tagIds来查找图册，并分页
-     * @param tagIds
-     * @param pageRequest
-     * @return
-     */
-    Page<Atlas> findByTagIds(List<Long> tagIds, PageRequest pageRequest);
+    public Page<Atlas> findAll(Pageable pageable) {
+        return atlasRepository.findAll(pageable);
+    }
+
+    public Page<Atlas> findByAtlasName(String atlas, Pageable pageable) {
+        return atlasRepository.findByAtlasLike(atlas, pageable);
+    }
+
+    public Atlas save(Atlas atlas) {
+        return atlasRepository.save(atlas);
+    }
+
+    public Atlas saveForForm(Map<String, Object> params) {
+        String name = (String) params.get("name");
+        long pictypeId = Long.valueOf(params.get("pictype").toString());
+        List<Integer> tagIds = (List<Integer>) params.get("tagIds");
+        List<String> filenames = (List<String>) params.get("files");
+
+        Atlas atlas = new Atlas();
+        List<Tag> tags = new ArrayList<>();
+        for (Integer tagId : tagIds){
+            tags.add(tagService.findOne(tagId));
+        }
+        atlas.setTags(tags);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        atlas.setUser(userService.findUserByUsername(((UserDetails)principal).getUsername()));
+        atlas.setAtlas(name);
+        atlas.setPicType(picTypeService.findOne(pictypeId));
+        atlas.setAddtime(String.valueOf(System.currentTimeMillis()));
+
+        for (String picpath : filenames){
+            Picture picture = new Picture();
+            picture.setPicpath(picpath);
+            picture.setAtlas(atlas);
+            picture.setAddtime(String.valueOf(System.currentTimeMillis()));
+            pictureService.save(picture);
+            if (filenames.get(0).equals(picpath)) {
+                atlas.setFrontCover(picpath);
+            }
+        }
+        atlasRepository.save(atlas);
+        return atlas;
+    }
+
+    public Atlas findOne(long id) {
+        return atlasRepository.findById(id).orElseThrow(ServiceException::new);
+    }
+
+    public Atlas updateForForm(Map<String, Object> params) {
+        String name = (String) params.get("atlas");
+        long atlasId = Long.valueOf(params.get("id").toString());
+        long pictypeId = Long.valueOf(params.get("picTypeId").toString());
+        List<Integer> tagIds = (List<Integer>) params.get("tagIds");
+        List<String> filenames = (List<String>) params.get("files");
+
+        Atlas atlas = atlasRepository.findById(atlasId).orElseThrow(ServiceException::new);
+        List<Tag> tags = new ArrayList<>();
+        for (Integer tagId : tagIds){
+            tags.add(tagService.findOne(tagId));
+        }
+        atlas.setTags(tags);
+        atlas.setAtlas(name);
+        atlas.setPicType(picTypeService.findOne(pictypeId));
+
+        for (String picpath : filenames){
+            Picture picture = new Picture();
+            picture.setPicpath(picpath);
+            picture.setAtlas(atlas);
+            picture.setAddtime(String.valueOf(System.currentTimeMillis()));
+            pictureService.save(picture);
+            if (filenames.get(0).equals(picpath)) {
+                atlas.setFrontCover(picpath);
+            }
+        }
+        atlasRepository.save(atlas);
+        return atlas;
+    }
+
+    public Page<Atlas> findByPicType(long typeId, Pageable pageable) {
+        return atlasRepository.findByPicTypeId(typeId, pageable);
+    }
+
+    public Page<Atlas> findByTagIds(List<Long> tagIds, PageRequest pageRequest) {
+        List<Tag> tags = new ArrayList<>();
+        for(long tagId : tagIds) {
+            tags.add(tagService.findOne(tagId));
+        }
+        return atlasRepository.findByTagsIn(tags, pageRequest);
+    }
 }

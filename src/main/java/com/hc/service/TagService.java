@@ -1,22 +1,42 @@
 package com.hc.service;
 
+import com.hc.dao.TagRepository;
 import com.hc.domain.Tag;
+import com.hc.exception.ServiceException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
+ *
  * @author Administrator
  * @date 2015/9/5
  */
-public interface TagService {
+@Service
+public class TagService {
 
-    List<Tag> findAll();
+    @Autowired
+    private TagRepository tagRepository;
 
-    List<Tag> findByPicTypeId(long picTypeId);
+    public List<Tag> findAll() {
+        return tagRepository.findAll();
+    }
 
-    Tag findOne(long id);
+    public List<Tag> findByPicTypeId(long picTypeId) {
+        return tagRepository.findByPicTypeId(picTypeId);
+    }
 
-    Tag save(Tag tag);
+    public Tag findOne(long id) {
+        return tagRepository.findById(id).orElseThrow(ServiceException::new);
+    }
 
-    void delete(long id);
+    public Tag save(Tag tag) {
+        return tagRepository.save(tag);
+    }
+
+    public void delete(long id) {
+        tagRepository.deleteById(id);
+    }
+
 }

@@ -37,7 +37,7 @@ public class PictureController {
         PageRequest pageRequest = CommonUtil.buildPageRequest(pageParams);
         String filterValue = (String) pageParams.get("filter[picture]");
         if (filterValue!=null){
-            return pictureService.findByPicpathLike("%" + filterValue + "%", pageRequest);
+            return pictureService.findByPicPathLike("%" + filterValue + "%", pageRequest);
         }
         return pictureService.findAll(pageRequest);
     }
