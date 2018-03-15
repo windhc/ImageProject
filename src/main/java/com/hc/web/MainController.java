@@ -1,11 +1,8 @@
 package com.hc.web;
 
 import com.hc.domain.User;
-import com.hc.exception.ServiceException;
 import com.hc.service.UserService;
 import com.hc.utils.CommonUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +17,6 @@ import java.util.Map;
 @Controller
 @RequestMapping("/admin")
 public class MainController {
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(MainController.class);
 
     @Autowired
     private UserService userService;
@@ -59,16 +54,4 @@ public class MainController {
         userService.updateUserPwd(user, oldPwd, newPwd);
         return CommonUtil.response(true, "密码修改成功");
     }
-
-    /**
-     * -------------handleException-------------
-     * @param e exception
-     * @return map
-     */
-    @ExceptionHandler(ServiceException.class)
-    @ResponseBody
-    public Map<String, Object> serviceExceptionHandler(ServiceException e) {
-        return CommonUtil.response(false, e.getMessage());
-    }
-
 }

@@ -1,7 +1,6 @@
 package com.hc.web;
 
 import com.hc.domain.Picture;
-import com.hc.exception.ServiceException;
 import com.hc.service.PictureService;
 import com.hc.service.TagService;
 import com.hc.utils.CommonUtil;
@@ -47,12 +46,4 @@ public class PictureController {
         boolean result = pictureService.delete(id);
         return CommonUtil.response(result, result ? "删除成功" : "删除失败");
     }
-
-    @ExceptionHandler(ServiceException.class)
-    public Map<String,Object> serviceExceptionHandler(ServiceException e) {
-        e.printStackTrace();
-        System.out.println("ServiceException");
-        return CommonUtil.response(false, e.getMessage());
-    }
-
 }
