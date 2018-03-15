@@ -6,11 +6,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.lang.reflect.Array;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Map;
 
 /**
  * 通用工具类
- * Created by Administrator on 2015/8/26.
+ * @author Administrator
+ * @date 2015/8/26
  */
 public class CommonUtil {
 
@@ -19,18 +23,6 @@ public class CommonUtil {
                 .getAuthentication()
                 .getPrincipal();
         return userDetails.getUsername();
-    }
-    /**
-     * 全局返回函数
-     * @param isSuccess 执行是否成功
-     * @param msg 返回的message
-     * @return
-     */
-    public static Map<String, Object> response(boolean isSuccess, String msg){
-        Map<String, Object> map = new HashMap<>();
-        map.put("success",isSuccess);
-        map.put("msg", msg);
-        return map;
     }
 
     public static String now() {
@@ -41,7 +33,6 @@ public class CommonUtil {
      * 创建分页请求.
      */
     public static PageRequest buildPageRequest(Map pageParams) {
-
         int page = 1;
         int count = 1;
         Sort sort = null;
@@ -105,8 +96,9 @@ public class CommonUtil {
      * 比较两个日期相差的秒数
      */
     public static long compareTime(Date date1, Date date2) {
-        if (date1 == null || date2 == null)
+        if (date1 == null || date2 == null) {
             return 0;
+        }
 
         Calendar c = Calendar.getInstance();
         c.setTime(date1);

@@ -2,12 +2,10 @@ package com.hc.web;
 
 import com.hc.domain.Tag;
 import com.hc.service.TagService;
-import com.hc.utils.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Administrator
@@ -36,20 +34,17 @@ public class TagController {
     }
 
     @PostMapping(value = "/save")
-    public Map save(@RequestBody Tag tag) {
+    public void save(@RequestBody Tag tag) {
         tagService.save(tag);
-        return CommonUtil.response(true, "标签添加成功");
     }
 
-    @GetMapping(value = "/delete/{id}")
-    public Map delete(@PathVariable("id") long id) {
+    @DeleteMapping(value = "/delete/{id}")
+    public void delete(@PathVariable("id") long id) {
         tagService.delete(id);
-        return CommonUtil.response(true, "标签删除成功");
     }
 
     @PostMapping(value = "/update")
-    public Map update(@RequestBody Tag tag) {
+    public void update(@RequestBody Tag tag) {
         tagService.save(tag);
-        return CommonUtil.response(true, "标签修改成功");
     }
 }

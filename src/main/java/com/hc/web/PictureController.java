@@ -41,9 +41,8 @@ public class PictureController {
         return pictureService.findAll(pageRequest);
     }
 
-    @GetMapping(value = "/delete/{id}")
-    public Map delete(@PathVariable("id") long id){
-        boolean result = pictureService.delete(id);
-        return CommonUtil.response(result, result ? "删除成功" : "删除失败");
+    @DeleteMapping(value = "/delete/{id}")
+    public void delete(@PathVariable("id") long id){
+        pictureService.delete(id);
     }
 }

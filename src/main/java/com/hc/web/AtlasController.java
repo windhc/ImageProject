@@ -7,7 +7,6 @@ import com.hc.utils.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,31 +25,28 @@ public class AtlasController {
     @Autowired
     private AtlasService atlasService;
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/delete/{id}")
     public void delete(@PathVariable("id") long id){
         atlasService.delete(id);
     }
 
-    @RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
-    public Atlas datail(@PathVariable("id") long id){
+    @GetMapping(value = "/detail/{id}")
+    public Atlas detail(@PathVariable("id") long id){
         return atlasService.findOne(id);
     }
 
-    @RequestMapping(value = "/tag/{atlasId}",method = RequestMethod.GET)
+    @GetMapping(value = "/tag/{atlasId}")
     public List<Tag> getAtlasTag(@PathVariable("atlasId") long atlasId){
         return atlasService.atlasTag(atlasId);
     }
 
-    @Transactional
-    @RequestMapping(value = "/save",method = RequestMethod.POST)
-    public Map save(@RequestBody Map<String,Object> params){
+    @PostMapping(value = "/save")
+    public void save(@RequestBody Map<String,Object> params){
         atlasService.saveForForm(params);
-        return CommonUtil.response(true, "添加成功！");
     }
 
-    @RequestMapping(value = "/atlasPage", method = RequestMethod.GET)
+    @GetMapping(value = "/atlasPage")
     public Page<Atlas> getAllPicture(@RequestParam() Map pageParams) {
-
         PageRequest pageRequest = CommonUtil.buildPageRequest(pageParams);
         String filterValue = (String) pageParams.get("filter[atlas]");
         Object typeId = pageParams.get("type");
@@ -63,18 +59,15 @@ public class AtlasController {
         return atlasService.findAll(pageRequest);
     }
 
-    @Transactional
-    @RequestMapping(value = "/update",method = RequestMethod.POST)
-    public Map update(@RequestBody Map<String,Object> params) {
-
+    @PostMapping(value = "/update")
+    public void update(@RequestBody Map<String,Object> params) {
         atlasService.updateForForm(params);
-        return CommonUtil.response(true, "修改成功！");
     }
 
     /**
      * 前端相册分页获取
      */
-    @RequestMapping(value = "/front/atlasPage", method = RequestMethod.GET)
+    @GetMapping(value = "/front/atlasPage")
     public Page<Atlas> getPictures(@RequestParam() Map pageParams) {
         PageRequest pageRequest = CommonUtil.buildPageRequest(pageParams);
         Object typeId = pageParams.get("type");

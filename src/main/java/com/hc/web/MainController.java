@@ -1,6 +1,7 @@
 package com.hc.web;
 
 import com.hc.domain.User;
+import com.hc.exception.ServiceException;
 import com.hc.service.UserService;
 import com.hc.utils.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,19 +40,18 @@ public class MainController {
 
     @PostMapping(value = "/updateCurrentPwd")
     @ResponseBody
-    public Map updateCurrentUserPwd(@RequestBody Map<String, String> params) {
+    public void updateCurrentUserPwd(@RequestBody Map<String, String> params) {
         if (params.size() != 3) {
-            return CommonUtil.response(false, "密码修改失败,参数不全");
+            throw new ServiceException("密码修改失败,参数不全");
         }
         String oldPwd = params.get("oldPwd");
         String newPwd = params.get("newPwd");
         String newPwdAgain = params.get("newPwdAgain");
         if (!newPwd.equals(newPwdAgain)) {
-            return CommonUtil.response(false, "密码修改失败,新密码不一致");
+            throw new ServiceException("密码修改失败,新密码不一致");
         }
         String username = CommonUtil.getCurrentUserName();
         User user = userService.findUserByUsername(username);
         userService.updateUserPwd(user, oldPwd, newPwd);
-        return CommonUtil.response(true, "密码修改成功");
     }
 }

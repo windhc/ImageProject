@@ -32,21 +32,18 @@ public class UserController {
     }
 
     @DeleteMapping(value = "/delete/{id}")
-    public Map delete(@PathVariable("id") long id) {
+    public void delete(@PathVariable("id") long id) {
         userService.deleteUser(id);
-        return CommonUtil.response(true, "用户删除成功");
     }
 
     @PostMapping(value = "/save")
-    public Map save(@RequestBody User user) {
+    public void save(@RequestBody User user) {
         userService.createOrUpdate(user);
-        return CommonUtil.response(true, "用户添加成功");
     }
 
-    @PostMapping(value = "/update")
-    public Map update(@RequestBody User user) {
+    @PutMapping(value = "/update")
+    public void update(@RequestBody User user) {
         userService.createOrUpdate(user);
-        return CommonUtil.response(true, "用户修改成功");
     }
 
     @GetMapping(value = "/{id}")
