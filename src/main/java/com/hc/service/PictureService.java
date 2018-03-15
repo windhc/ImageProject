@@ -27,7 +27,7 @@ public class PictureService {
     }
 
     public Page<Picture> findByPicPathLike(String pictureName, Pageable pageable) {
-        return pictureRepository.findByPicPathLike(pictureName, pageable);
+        return pictureRepository.findByPicpathLike(pictureName, pageable);
     }
 
     public Picture save(Picture picture) {

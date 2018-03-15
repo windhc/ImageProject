@@ -16,7 +16,7 @@ public interface PictureRepository extends JpaRepository<Picture, Long> {
 
     Page<Picture> findAll(Pageable pageable);
 
-    Page<Picture> findByPicPathLike(String pictureName, Pageable pageable);
+    Page<Picture> findByPicpathLike(String pictureName, Pageable pageable);
 
     List<Picture> findByAtlasId(long id);
 
