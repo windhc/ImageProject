@@ -9,31 +9,34 @@ import java.util.List;
 
 /**
  * 图册
- * Created by Administrator on 2015/8/26.
+ *
+ * @author Administrator
+ * @date 2015/8/26
  */
 @Table(name = "tb_atlas")
 @JsonIgnoreProperties(value = {"pictures"})
 public class Atlas {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "JDBC")
     private Long id;
 
     private String atlas;
 
     private String frontCover;
 
-    private String addtime;
-
-    private List<Tag> tags;
-
-    private Long pictypeId;
-
-    private PicType picType;
+    private Long pictureTypeId;
 
     private Long userId;
 
+    private Long createdAt;
+
+
+    private List<Tag> tags;
+
     private User user;
+
+    private PictureType pictureType;
 
     private List<Picture> pictures;
 
@@ -61,12 +64,12 @@ public class Atlas {
         this.frontCover = frontCover;
     }
 
-    public String getAddtime() {
-        return addtime;
+    public Long getCreatedAt() {
+        return createdAt;
     }
 
-    public void setAddtime(String addtime) {
-        this.addtime = addtime;
+    public void setCreatedAt(Long createdAt) {
+        this.createdAt = createdAt;
     }
 
     public List<Tag> getTags() {
@@ -77,20 +80,20 @@ public class Atlas {
         this.tags = tags;
     }
 
-    public Long getPictypeId() {
-        return pictypeId;
+    public Long getPictureTypeId() {
+        return pictureTypeId;
     }
 
-    public void setPictypeId(Long pictypeId) {
-        this.pictypeId = pictypeId;
+    public void setPictureTypeId(Long pictureTypeId) {
+        this.pictureTypeId = pictureTypeId;
     }
 
-    public PicType getPicType() {
-        return picType;
+    public PictureType getPictureType() {
+        return pictureType;
     }
 
-    public void setPicType(PicType picType) {
-        this.picType = picType;
+    public void setPictureType(PictureType pictureType) {
+        this.pictureType = pictureType;
     }
 
     public Long getUserId() {

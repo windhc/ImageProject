@@ -22,7 +22,7 @@ public class UserService {
     
     public void createOrUpdate(User user) {
         if (user.getId() == null) {
-            user.setRegisterTime(String.valueOf(System.currentTimeMillis()));
+            user.setCreatedAt(System.currentTimeMillis());
             user.setEnabled(true);
             user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         }

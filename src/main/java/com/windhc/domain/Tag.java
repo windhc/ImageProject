@@ -17,14 +17,14 @@ import java.util.List;
 public class Tag {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "JDBC")
     private Long id;
 
     private String tagName;
 
-    private Long pictypeId;
+    private Long pictureTypeId;
 
-    private PicType picType;
+    private PictureType pictureType;
 
     private List<Atlas> atlases;
 
@@ -44,20 +44,20 @@ public class Tag {
         this.tagName = tagName;
     }
 
-    public Long getPictypeId() {
-        return pictypeId;
+    public Long getPictureTypeId() {
+        return pictureTypeId;
     }
 
-    public void setPictypeId(Long pictypeId) {
-        this.pictypeId = pictypeId;
+    public void setPictureTypeId(Long pictureTypeId) {
+        this.pictureTypeId = pictureTypeId;
     }
 
-    public PicType getPicType() {
-        return picType;
+    public PictureType getPictureType() {
+        return pictureType;
     }
 
-    public void setPicType(PicType picType) {
-        this.picType = picType;
+    public void setPictureType(PictureType pictureType) {
+        this.pictureType = pictureType;
     }
 
     public List<Atlas> getAtlases() {

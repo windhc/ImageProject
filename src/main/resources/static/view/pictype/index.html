@@ -11,16 +11,16 @@
             <th>分类名称</th>
             <th>操作</th>
         </tr>
-        <tr ng-repeat="picType in typeList">
+        <tr ng-repeat="pictureType in typeList">
             <td class="text-center">
-                {{picType.id}}
+                {{pictureType.id}}
             </td>
             <td class="text-center">
-                {{picType.typeName}}
+                {{pictureType.typeName}}
             </td>
             <td data-title="'操作'" class="text-center">
-                <a ng-click=updateShow(picType.id,picType.typeName) class="btn btn-default btn-xs">修改</a>
-                <a ng-click=delete(picType.id) class="btn btn-primary btn-xs">删除</a>
+                <a ng-click=updateShow(pictureType.id,pictureType.typeName) class="btn btn-default btn-xs">修改</a>
+                <a ng-click=delete(pictureType.id) class="btn btn-primary btn-xs">删除</a>
             </td>
         </tr>
     </table>

@@ -20,7 +20,7 @@
                 {{tag.tagName}}
             </td>
             <td class="text-center">
-                {{tag.picType.typeName}}
+                {{tag.pictureType.typeName}}
             </td>
             <td data-title="'操作'" class="text-center">
                 <a ng-click=updateShow(tag.id) class="btn btn-default btn-xs">修改</a>
@@ -46,9 +46,9 @@
                         <input type="text" ng-model="tag.tagName" class="form-control" id="tagNameInput">
                         <br>
                         <label for="picTypeName">所属分类</label>
-                        <select ng-model="tag.picType.id" id="picTypeName" class="form-control" required>
+                        <select ng-model="tag.pictureType.id" id="picTypeName" class="form-control" required>
                             <option data-ng-repeat="type in typeList" value={{type.id}}
-                                    ng-selected="type.id==tag.picType.id">
+                                    ng-selected="type.id==tag.pictureType.id">
                                 {{type.typeName}}
                             </option>
                         </select>

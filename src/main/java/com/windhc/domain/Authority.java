@@ -14,7 +14,7 @@ import javax.persistence.Table;
 public class Authority {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "JDBC")
     private Long id;
 
     private String username;

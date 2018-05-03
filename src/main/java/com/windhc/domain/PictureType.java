@@ -9,14 +9,16 @@ import java.util.List;
 
 /**
  * 图片类型
- * Created by Administrator on 2015/8/26.
+ *
+ * @author Administrator
+ * @date 2015/8/26
  */
-@Table(name = "tb_pictype")
+@Table(name = "tb_picture_type")
 @JsonIgnoreProperties(value = {"tags"})
-public class PicType {
+public class PictureType {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "JDBC")
     private Long id;
 
     private String typeName;

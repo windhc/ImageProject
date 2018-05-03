@@ -6,20 +6,22 @@ import javax.persistence.Table;
 
 /**
  * 图片
- * Created by Administrator on 2015/8/26.
+ *
+ * @author Administrator
+ * @date 2015/8/26
  */
 @Table(name = "tb_picture")
 public class Picture {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "JDBC")
     private Long id;
 
-    private String picpath;
-
-    private String addtime;
+    private String path;
 
     private Long atlasId;
+
+    private Long createdAt;
 
     private Atlas atlas;
 
@@ -31,20 +33,20 @@ public class Picture {
         this.id = id;
     }
 
-    public String getPicpath() {
-        return picpath;
+    public String getPath() {
+        return path;
     }
 
-    public void setPicpath(String picpath) {
-        this.picpath = picpath;
+    public void setPath(String path) {
+        this.path = path;
     }
 
-    public String getAddtime() {
-        return addtime;
+    public Long getCreatedAt() {
+        return createdAt;
     }
 
-    public void setAddtime(String addtime) {
-        this.addtime = addtime;
+    public void setCreatedAt(Long createdAt) {
+        this.createdAt = createdAt;
     }
 
     public Long getAtlasId() {

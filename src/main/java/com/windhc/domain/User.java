@@ -2,10 +2,13 @@ package com.windhc.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.windhc.config.Role;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Collection;
 
 /**
  * 用户
@@ -15,10 +18,10 @@ import javax.persistence.Table;
  */
 @Table(name = "tb_user")
 @JsonIgnoreProperties(value = {"password"})
-public class User {
+public class User implements UserDetails {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "JDBC")
     private Long id;
 
     private String username;
@@ -34,9 +37,16 @@ public class User {
 
     private Integer loginCounts;
 
-    private String registerTime;
+    private Long createdAt;
 
-    private boolean enabled;
+    private Long updatedAt;
+
+    private Boolean enabled;
+
+    /**
+     * 最后修改密码时间
+     */
+    private Long lastResetPassword;
 
     private Role role;
 
@@ -48,14 +58,41 @@ public class User {
         this.id = id;
     }
 
+    @Override
     public String getUsername() {
         return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setUsername(String username) {
         this.username = username;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
     public String getPassword() {
         return password;
     }
@@ -70,6 +107,22 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Long getLastResetPassword() {
+        return lastResetPassword;
+    }
+
+    public void setLastResetPassword(Long lastResetPassword) {
+        this.lastResetPassword = lastResetPassword;
     }
 
     public Long getLastLogin() {
@@ -88,20 +141,20 @@ public class User {
         this.loginCounts = loginCounts;
     }
 
-    public String getRegisterTime() {
-        return registerTime;
+    public Long getCreatedAt() {
+        return createdAt;
     }
 
-    public void setRegisterTime(String registerTime) {
-        this.registerTime = registerTime;
+    public void setCreatedAt(Long createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public boolean isEnabled() {
-        return enabled;
+    public Long getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
+    public void setUpdatedAt(Long updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public Role getRole() {

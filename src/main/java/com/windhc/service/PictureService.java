@@ -41,7 +41,7 @@ public class PictureService {
 
     public void delete(long id) {
         Picture picture = pictureMapper.selectByPrimaryKey(id);
-        String picPath = picture.getPicpath();
+        String picPath = picture.getPath();
         picPath = picPath.substring(picPath.lastIndexOf("http://imagestore.b0.upaiyun.com")+32);
         pictureMapper.deleteByPrimaryKey(id);
         try {

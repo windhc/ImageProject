@@ -87,17 +87,17 @@ public class AtlasService {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         atlas.setUser(userService.findUserByUsername(((UserDetails)principal).getUsername()));
         atlas.setAtlas(name);
-        atlas.setPicType(picTypeService.findOne(pictypeId));
-        atlas.setAddtime(String.valueOf(System.currentTimeMillis()));
+        atlas.setPictureType(picTypeService.findOne(pictypeId));
+        atlas.setCreatedAt(System.currentTimeMillis());
 
-        for (String picpath : filenames){
+        for (String path : filenames){
             Picture picture = new Picture();
-            picture.setPicpath(picpath);
+            picture.setPath(path);
             picture.setAtlas(atlas);
-            picture.setAddtime(String.valueOf(System.currentTimeMillis()));
+            picture.setCreatedAt(System.currentTimeMillis());
             pictureService.save(picture);
-            if (filenames.get(0).equals(picpath)) {
-                atlas.setFrontCover(picpath);
+            if (filenames.get(0).equals(path)) {
+                atlas.setFrontCover(path);
             }
         }
         atlasMapper.insertSelective(atlas);
@@ -122,16 +122,16 @@ public class AtlasService {
         }
         atlas.setTags(tags);
         atlas.setAtlas(name);
-        atlas.setPicType(picTypeService.findOne(pictypeId));
+        atlas.setPictureType(picTypeService.findOne(pictypeId));
 
-        for (String picpath : filenames){
+        for (String path : filenames){
             Picture picture = new Picture();
-            picture.setPicpath(picpath);
+            picture.setPath(path);
             picture.setAtlas(atlas);
-            picture.setAddtime(String.valueOf(System.currentTimeMillis()));
+            picture.setCreatedAt(System.currentTimeMillis());
             pictureService.save(picture);
-            if (filenames.get(0).equals(picpath)) {
-                atlas.setFrontCover(picpath);
+            if (filenames.get(0).equals(path)) {
+                atlas.setFrontCover(path);
             }
         }
         atlasMapper.insertSelective(atlas);
