@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import java.util.List;
 
 /**
@@ -12,7 +11,6 @@ import java.util.List;
  * @author Administrator
  * @date 2015/8/26
  */
-@Table(name = "tb_tag")
 @JsonIgnoreProperties(value={"atlases"})
 public class Tag {
 

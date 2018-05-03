@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import java.util.Collection;
 
 /**
@@ -16,7 +15,6 @@ import java.util.Collection;
  * @author Administrator
  * @date 2015/8/27
  */
-@Table(name = "tb_user")
 @JsonIgnoreProperties(value = {"password"})
 public class User implements UserDetails {
 

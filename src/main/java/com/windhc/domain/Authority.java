@@ -2,7 +2,6 @@ package com.windhc.domain;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 /**
  * 权限
@@ -10,7 +9,6 @@ import javax.persistence.Table;
  * @author Administrator
  * @date 2015/8/27
  */
-@Table(name = "tb_authorities")
 public class Authority {
 
     @Id

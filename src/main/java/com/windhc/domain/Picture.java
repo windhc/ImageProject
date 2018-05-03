@@ -2,15 +2,12 @@ package com.windhc.domain;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 /**
  * 图片
- *
  * @author Administrator
  * @date 2015/8/26
  */
-@Table(name = "tb_picture")
 public class Picture {
 
     @Id
