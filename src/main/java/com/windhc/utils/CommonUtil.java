@@ -1,6 +1,5 @@
 package com.windhc.utils;
 
-import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -22,40 +21,6 @@ public class CommonUtil {
                 .getAuthentication()
                 .getPrincipal();
         return userDetails.getUsername();
-    }
-
-    public static String now() {
-        return null;
-    }
-
-    /**
-     * 创建分页请求.
-     */
-    public static PageRequest buildPageRequest(Map pageParams) {
-        int page = 1;
-        int count = 1;
-        Sort sort = null;
-
-        for(Object key : pageParams.keySet()){
-            String paramKey = (String)key;
-            if (paramKey.equals("page")){
-                page = Integer.valueOf((String)pageParams.get(paramKey));
-            }
-            if (paramKey.equals("count")){
-                count = Integer.valueOf((String)pageParams.get(paramKey));
-            }
-            if (paramKey.startsWith("sorting[")){
-                String sortKey = paramKey.substring(paramKey.indexOf("[")+1,paramKey.lastIndexOf("]"));
-                String sortType = (String)pageParams.get(paramKey);
-                if(sortType.equals("asc")){
-                    sort = new Sort(Sort.Direction.ASC, sortKey);
-                }
-                if(sortType.equals("desc")){
-                    sort = new Sort(Sort.Direction.DESC, sortKey);
-                }
-            }
-        }
-        return PageRequest.of(page-1, count, sort);
     }
 
     public static boolean isNotNull(Object value) {
