@@ -1,16 +1,12 @@
 package com.windhc.web;
 
+import com.github.pagehelper.PageInfo;
 import com.windhc.domain.Atlas;
 import com.windhc.domain.Tag;
 import com.windhc.service.AtlasService;
-import com.windhc.utils.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -46,17 +42,18 @@ public class AtlasController {
     }
 
     @GetMapping(value = "/atlasPage")
-    public Page<Atlas> getAllPicture(@RequestParam() Map pageParams) {
-        PageRequest pageRequest = CommonUtil.buildPageRequest(pageParams);
-        String filterValue = (String) pageParams.get("filter[atlas]");
-        Object typeId = pageParams.get("type");
-        if (!StringUtils.isEmpty(filterValue)){
-            return atlasService.findByAtlasName("%" + filterValue + "%", pageRequest);
-        }
-        if (typeId != null){
-            return atlasService.findByPicType(Long.parseLong(String.valueOf(typeId)), pageRequest);
-        }
-        return atlasService.findAll(pageRequest);
+    public PageInfo<Atlas> getAllPicture(@RequestParam() Map pageParams) {
+//        PageRequest pageRequest = CommonUtil.buildPageRequest(pageParams);
+//        String filterValue = (String) pageParams.get("filter[atlas]");
+//        Object typeId = pageParams.get("type");
+//        if (!StringUtils.isEmpty(filterValue)){
+//            return atlasService.findByAtlasName("%" + filterValue + "%", pageRequest);
+//        }
+//        if (typeId != null){
+//            return atlasService.findByPicType(Long.parseLong(String.valueOf(typeId)), pageRequest);
+//        }
+//        return atlasService.findAll(pageRequest);
+        return null;
     }
 
     @PostMapping(value = "/update")
@@ -68,22 +65,23 @@ public class AtlasController {
      * 前端相册分页获取
      */
     @GetMapping(value = "/front/atlasPage")
-    public Page<Atlas> getPictures(@RequestParam() Map pageParams) {
-        PageRequest pageRequest = CommonUtil.buildPageRequest(pageParams);
-        Object typeId = pageParams.get("type");
-        Object tag = pageParams.get("tag");
-        if (typeId != null){
-            return atlasService.findByPicType(Long.parseLong(String.valueOf(typeId)), pageRequest);
-        }
-        if (tag != null){
-            char[] chars = String.valueOf(tag).toCharArray();
-            List<Long> tagIds = new ArrayList<>();
-            for (char c : chars) {
-                tagIds.add(Long.valueOf(String.valueOf(c)));
-            }
-            return atlasService.findByTagIds(tagIds, pageRequest);
-        }
-        return atlasService.findAll(pageRequest);
+    public PageInfo<Atlas> getPictures(@RequestParam() Map pageParams) {
+//        PageRequest pageRequest = CommonUtil.buildPageRequest(pageParams);
+//        Object typeId = pageParams.get("type");
+//        Object tag = pageParams.get("tag");
+//        if (typeId != null){
+//            return atlasService.findByPicType(Long.parseLong(String.valueOf(typeId)), pageRequest);
+//        }
+//        if (tag != null){
+//            char[] chars = String.valueOf(tag).toCharArray();
+//            List<Long> tagIds = new ArrayList<>();
+//            for (char c : chars) {
+//                tagIds.add(Long.valueOf(String.valueOf(c)));
+//            }
+//            return atlasService.findByTagIds(tagIds, pageRequest);
+//        }
+//        return atlasService.findAll(pageRequest);
+        return null;
     }
 
 }

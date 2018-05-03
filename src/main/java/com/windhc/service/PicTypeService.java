@@ -2,7 +2,6 @@ package com.windhc.service;
 
 import com.windhc.dao.PicTypeMapper;
 import com.windhc.domain.PicType;
-import com.windhc.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,19 +18,19 @@ public class PicTypeService {
     private PicTypeMapper picTypeMapper;
 
     public List<PicType> getAll() {
-        return picTypeMapper.findAll();
+        return picTypeMapper.selectAll();
     }
 
     public PicType findOne(long id) {
-        return picTypeMapper.findById(id).orElseThrow(ServiceException::new);
+        return picTypeMapper.selectByPrimaryKey(id);
     }
 
-    public PicType save(PicType picType) {
-        return picTypeMapper.save(picType);
+    public void save(PicType picType) {
+        picTypeMapper.insertSelective(picType);
     }
 
     public void delete(long id) {
-        picTypeMapper.deleteById(id);
+        picTypeMapper.deleteByPrimaryKey(id);
     }
 
 }

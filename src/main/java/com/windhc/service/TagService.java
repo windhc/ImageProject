@@ -2,7 +2,6 @@ package com.windhc.service;
 
 import com.windhc.dao.TagMapper;
 import com.windhc.domain.Tag;
-import com.windhc.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +19,7 @@ public class TagService {
     private TagMapper tagMapper;
 
     public List<Tag> findAll() {
-        return tagMapper.findAll();
+        return tagMapper.selectAll();
     }
 
     public List<Tag> findByPicTypeId(long picTypeId) {
@@ -28,15 +27,15 @@ public class TagService {
     }
 
     public Tag findOne(long id) {
-        return tagMapper.findById(id).orElseThrow(ServiceException::new);
+        return tagMapper.selectByPrimaryKey(id);
     }
 
-    public Tag save(Tag tag) {
-        return tagMapper.save(tag);
+    public void save(Tag tag) {
+        tagMapper.insertSelective(tag);
     }
 
     public void delete(long id) {
-        tagMapper.deleteById(id);
+        tagMapper.deleteByPrimaryKey(id);
     }
 
 }

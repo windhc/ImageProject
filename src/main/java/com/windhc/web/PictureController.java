@@ -1,16 +1,14 @@
 package com.windhc.web;
 
+import com.github.pagehelper.PageInfo;
 import com.windhc.domain.Picture;
 import com.windhc.service.PictureService;
 import com.windhc.service.TagService;
-import com.windhc.utils.CommonUtil;
+import com.windhc.utils.PageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Administrator
@@ -32,12 +30,7 @@ public class PictureController {
     }
 
     @GetMapping(value = "/picturePage")
-    public Page<Picture> getAllPicture(@RequestParam() Map pageParams) {
-        PageRequest pageRequest = CommonUtil.buildPageRequest(pageParams);
-        String filterValue = (String) pageParams.get("filter[picture]");
-        if (filterValue!=null){
-            return pictureService.findByPicPathLike("%" + filterValue + "%", pageRequest);
-        }
+    public PageInfo<Picture> getAllPicture(PageRequest pageRequest) {
         return pictureService.findAll(pageRequest);
     }
 

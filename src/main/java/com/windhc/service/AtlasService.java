@@ -1,16 +1,15 @@
 package com.windhc.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.windhc.dao.AtlasMapper;
 import com.windhc.dao.PicTypeMapper;
 import com.windhc.dao.TagMapper;
 import com.windhc.domain.Atlas;
 import com.windhc.domain.Picture;
 import com.windhc.domain.Tag;
-import com.windhc.exception.ServiceException;
+import com.windhc.utils.PageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -52,24 +51,25 @@ public class AtlasService {
         pictures.stream().forEach( picture -> {
             pictureService.delete(picture.getId());
         });
-        atlasMapper.deleteById(id);
+        atlasMapper.deleteByPrimaryKey(id);
     }
 
     public List<Tag> atlasTag(long atlasId) {
-        Atlas atlas = atlasMapper.findById(atlasId).orElseThrow(ServiceException::new);
+        Atlas atlas = atlasMapper.selectByPrimaryKey(atlasId);
         return null;
     }
 
-    public Page<Atlas> findAll(Pageable pageable) {
-        return atlasMapper.findAll(pageable);
+    public PageInfo<Atlas> findAll(PageRequest pageRequest) {
+        return PageHelper.startPage(pageRequest.getPageNum(), pageRequest.getPageSize())
+                .doSelectPageInfo(() -> atlasMapper.selectAll());
     }
 
-    public Page<Atlas> findByAtlasName(String atlas, Pageable pageable) {
-        return atlasMapper.findByAtlasLike(atlas, pageable);
-    }
+//    public Page<Atlas> findByAtlasName(String atlas, Pageable pageable) {
+//        return atlasMapper.findByAtlasLike(atlas, pageable);
+//    }
 
-    public Atlas save(Atlas atlas) {
-        return atlasMapper.save(atlas);
+    public void save(Atlas atlas) {
+        atlasMapper.insertSelective(atlas);
     }
 
     public Atlas saveForForm(Map<String, Object> params) {
@@ -100,12 +100,12 @@ public class AtlasService {
                 atlas.setFrontCover(picpath);
             }
         }
-        atlasMapper.save(atlas);
+        atlasMapper.insertSelective(atlas);
         return atlas;
     }
 
     public Atlas findOne(long id) {
-        return atlasMapper.findById(id).orElseThrow(ServiceException::new);
+        return atlasMapper.selectByPrimaryKey(id);
     }
 
     public Atlas updateForForm(Map<String, Object> params) {
@@ -115,7 +115,7 @@ public class AtlasService {
         List<Integer> tagIds = (List<Integer>) params.get("tagIds");
         List<String> filenames = (List<String>) params.get("files");
 
-        Atlas atlas = atlasMapper.findById(atlasId).orElseThrow(ServiceException::new);
+        Atlas atlas = atlasMapper.selectByPrimaryKey(atlasId);
         List<Tag> tags = new ArrayList<>();
         for (Integer tagId : tagIds){
             tags.add(tagService.findOne(tagId));
@@ -134,19 +134,19 @@ public class AtlasService {
                 atlas.setFrontCover(picpath);
             }
         }
-        atlasMapper.save(atlas);
+        atlasMapper.insertSelective(atlas);
         return atlas;
     }
 
-    public Page<Atlas> findByPicType(long typeId, Pageable pageable) {
-        return atlasMapper.findByPicTypeId(typeId, pageable);
-    }
+//    public Page<Atlas> findByPicType(long typeId, Pageable pageable) {
+//        return atlasMapper.findByPicTypeId(typeId, pageable);
+//    }
 
-    public Page<Atlas> findByTagIds(List<Long> tagIds, PageRequest pageRequest) {
-        List<Tag> tags = new ArrayList<>();
-        for(long tagId : tagIds) {
-            tags.add(tagService.findOne(tagId));
-        }
-        return atlasMapper.findByTagsIn(tags, pageRequest);
-    }
+//    public Page<Atlas> findByTagIds(List<Long> tagIds, PageRequest pageRequest) {
+//        List<Tag> tags = new ArrayList<>();
+//        for(long tagId : tagIds) {
+//            tags.add(tagService.findOne(tagId));
+//        }
+//        return atlasMapper.findByTagsIn(tags, pageRequest);
+//    }
 }

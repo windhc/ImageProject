@@ -22,11 +22,6 @@ public class MainController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(value = "")
-    public String main(){
-        return "/view/admin/main.html";
-    }
-
     @GetMapping(value = "/info")
     @ResponseBody
     public Map info() {

@@ -1,14 +1,11 @@
 package com.windhc.web;
 
+import com.github.pagehelper.PageInfo;
 import com.windhc.domain.User;
 import com.windhc.service.UserService;
-import com.windhc.utils.CommonUtil;
+import com.windhc.utils.PageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 /**
  * @author HC
@@ -22,12 +19,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping(value = "/userPage")
-    public Page<User> getAllPicture(@RequestParam() Map pageParams) {
-        PageRequest pageRequest = CommonUtil.buildPageRequest(pageParams);
-        String filterValue = (String) pageParams.get("filter[username]");
-        if (filterValue != null) {
-            return userService.findByUsernameLike("%" + filterValue + "%", pageRequest);
-        }
+    public PageInfo<User> getAllPicture(PageRequest pageRequest) {
         return userService.findAll(pageRequest);
     }
 
@@ -48,6 +40,6 @@ public class UserController {
 
     @GetMapping(value = "/{id}")
     public User findOne(@PathVariable("id") long id) {
-        return userService.findUserById(id);
+        return userService.findOne(id);
     }
 }
