@@ -1,4 +1,4 @@
-package com.windhc.exception;
+package com.windhc.config.exception;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

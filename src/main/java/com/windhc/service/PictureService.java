@@ -2,9 +2,9 @@ package com.windhc.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.windhc.config.exception.ServiceException;
 import com.windhc.dao.PictureMapper;
 import com.windhc.domain.Picture;
-import com.windhc.exception.ServiceException;
 import com.windhc.utils.PageRequest;
 import com.windhc.utils.UpYunUtil;
 import org.springframework.beans.factory.annotation.Autowired;

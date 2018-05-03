@@ -1,4 +1,4 @@
-package com.windhc.exception;
+package com.windhc.config.exception;
 
 
 /**

@@ -1,6 +1,6 @@
 package com.windhc.service;
 
-import com.windhc.exception.ServiceException;
+import com.windhc.config.exception.ServiceException;
 import com.windhc.utils.UpYunUtil;
 import main.java.com.UpYun;
 import org.apache.commons.io.FileUtils;

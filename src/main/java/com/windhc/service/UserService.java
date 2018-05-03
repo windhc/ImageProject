@@ -2,9 +2,9 @@ package com.windhc.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.windhc.config.exception.ServiceException;
 import com.windhc.dao.UserMapper;
 import com.windhc.domain.User;
-import com.windhc.exception.ServiceException;
 import com.windhc.utils.PageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
