@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.windhc.mapper.ConsumerMapper">
+
+    <sql id="ConsumerColumn">
+        `sys_user`.id,
+        `sys_user`.username,
+        `sys_user`.phone,
+        `sys_user`.password,
+        `sys_user`.nickname,
+        `sys_user`.created_at,
+        `sys_user`.deleted
+    </sql>
+
+</mapper>
