@@ -14,11 +14,9 @@ import java.util.Map;
 import java.util.function.Function;
 
 /**
- *
- * @author huangchen
+ * jwt
+ * @author windhc
  * @date 2017/10/28
- *
- * @version 1.0
  */
 @Component
 public class JwtTokenService implements Serializable {

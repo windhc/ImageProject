@@ -19,7 +19,7 @@ public class UpYunUtil {
      * @return UpYun
      */
     public static UpYun getUpYun(){
-        UpYun UPYUN = new UpYun("imagestore", "imageuser", "123456hcd");
+        UpYun UPYUN = new UpYun("imagestore", "imageuser", "xxxx");
         UPYUN.setDebug(true);
         UPYUN.setTimeout(30);
         UPYUN.setApiDomain(UpYun.ED_AUTO);

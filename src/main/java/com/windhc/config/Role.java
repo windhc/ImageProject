@@ -6,5 +6,5 @@ package com.windhc.config;
  * @date 2015/9/24
  */
 public enum Role {
-    ROLE_ADMIN, ROLE_USER;
+    ROLE_ADMIN, ROLE_USER
 }

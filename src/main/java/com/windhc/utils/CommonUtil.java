@@ -34,26 +34,16 @@ public class CommonUtil {
         if (value == null) {
             return true;
         } else if (value instanceof String) {
-            if (((String) value).trim().replaceAll("\\s", "").equals("")) {
-                return true;
-            }
+            return ((String) value).trim().replaceAll("\\s", "").equals("");
         } else if (value instanceof Collection) {
-            if (((Collection) value).isEmpty()) {
-                return true;
-            }
+            return ((Collection) value).isEmpty();
         } else if (value.getClass().isArray()) {
-            if (Array.getLength(value) == 0) {
-                return true;
-            }
+            return Array.getLength(value) == 0;
         } else if (value instanceof Map) {
-            if (((Map) value).isEmpty()) {
-                return true;
-            }
+            return ((Map) value).isEmpty();
         } else {
             return false;
         }
-        return false;
-
     }
 
     /**
