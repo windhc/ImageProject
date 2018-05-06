@@ -33,7 +33,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.authorizeRequests()
-                .antMatchers("/", "/login", "/main", "/**/*.css", "/**/*.js", "/image/**").permitAll()
+                .antMatchers("/", "/login", "/main", "/user/login",
+                        "/**/*.css", "/**/*.js", "/image/**").permitAll()
                 .anyRequest().authenticated();
 
         // 添加JWT filter

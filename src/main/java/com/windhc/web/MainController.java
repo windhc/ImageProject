@@ -1,12 +1,13 @@
 package com.windhc.web;
 
-import com.windhc.config.exception.ServiceException;
 import com.windhc.domain.User;
 import com.windhc.service.UserService;
 import com.windhc.utils.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,22 +32,5 @@ public class MainController {
         map.put("username", username);
         map.put("role", user.getRole());
         return map;
-    }
-
-    @PostMapping(value = "/updateCurrentPwd")
-    @ResponseBody
-    public void updateCurrentUserPwd(@RequestBody Map<String, String> params) {
-        if (params.size() != 3) {
-            throw new ServiceException("密码修改失败,参数不全");
-        }
-        String oldPwd = params.get("oldPwd");
-        String newPwd = params.get("newPwd");
-        String newPwdAgain = params.get("newPwdAgain");
-        if (!newPwd.equals(newPwdAgain)) {
-            throw new ServiceException("密码修改失败,新密码不一致");
-        }
-        String username = CommonUtil.getCurrentUserName();
-        User user = userService.findUserByUsername(username);
-        userService.updateUserPwd(user, oldPwd, newPwd);
     }
 }

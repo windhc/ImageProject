@@ -2,9 +2,11 @@ package com.windhc.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.windhc.config.JwtTokenService;
 import com.windhc.config.exception.ServiceException;
 import com.windhc.dao.UserMapper;
 import com.windhc.domain.User;
+import com.windhc.dto.LoginResponse;
 import com.windhc.utils.PageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,6 +21,9 @@ public class UserService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private JwtTokenService jwtTokenService;
     
     public void createOrUpdate(User user) {
         if (user.getId() == null) {
@@ -60,5 +65,14 @@ public class UserService {
         }
         user.setPassword(new BCryptPasswordEncoder().encode(newPwd));
         userMapper.updateByPrimaryKeySelective(user);
+    }
+
+    public LoginResponse login(User user) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        User result = userMapper.findByUsername(user.getUsername());
+        if(result == null || !passwordEncoder.matches(user.getPassword(), result.getPassword())) {
+            throw new ServiceException("用户名或密码错误");
+        }
+        return new LoginResponse(jwtTokenService.generateToken(result));
     }
 }
