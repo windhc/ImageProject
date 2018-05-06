@@ -2,11 +2,10 @@ package com.windhc.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.windhc.config.exception.ServiceException;
+import com.windhc.config.upyun.UpYunService;
 import com.windhc.dao.PictureMapper;
 import com.windhc.domain.Picture;
 import com.windhc.utils.PageRequest;
-import com.windhc.utils.UpYunUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +20,9 @@ public class PictureService {
 
     @Autowired
     private PictureMapper pictureMapper;
+
+    @Autowired
+    private UpYunService upYunService;
 
     public PageInfo<Picture> findAll(PageRequest pageRequest) {
         return PageHelper.startPage(pageRequest.getPageNum(), pageRequest.getPageSize())
@@ -42,13 +44,10 @@ public class PictureService {
     public void delete(long id) {
         Picture picture = pictureMapper.selectByPrimaryKey(id);
         String picPath = picture.getPath();
-        picPath = picPath.substring(picPath.lastIndexOf("http://imagestore.b0.upaiyun.com")+32);
+        picPath = picPath.substring(picPath.lastIndexOf("http://imagestore.b0.upaiyun.com") + 32);
         pictureMapper.deleteByPrimaryKey(id);
-        try {
-            UpYunUtil.getUpYun().deleteFile(picPath);
-        } catch (Exception e){
-            throw new ServiceException("删除文件出错");
-        }
+
+        upYunService.deleteFile(picPath);
     }
 
     public Picture findOne(long id) {

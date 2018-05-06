@@ -17,6 +17,6 @@ public class UpYunAutoConfiguration {
 
     @Bean
     public UpYunService upYunService() {
-        return new UpYunService();
+        return new UpYunService(upYunProperties);
     }
 }
