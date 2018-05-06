@@ -38,4 +38,7 @@ public class TagService {
         tagMapper.deleteByPrimaryKey(id);
     }
 
+    public void update(Tag tag) {
+        tagMapper.updateByPrimaryKeySelective(tag);
+    }
 }

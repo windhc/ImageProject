@@ -23,22 +23,22 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(value = "/userPage")
+    @GetMapping(value = "")
     public PageInfo<User> getAllPicture(PageRequest pageRequest) {
         return userService.findAll(pageRequest);
     }
 
-    @DeleteMapping(value = "/delete/{id}")
+    @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") long id) {
         userService.deleteUser(id);
     }
 
-    @PostMapping(value = "/save")
+    @PostMapping(value = "")
     public void save(@RequestBody User user) {
         userService.createOrUpdate(user);
     }
 
-    @PutMapping(value = "/update")
+    @PutMapping(value = "")
     public void update(@RequestBody User user) {
         userService.createOrUpdate(user);
     }
