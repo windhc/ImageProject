@@ -1,5 +1,6 @@
 package com.windhc.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -16,6 +17,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Bean
+    public JwtAuthenticationTokenFilter authenticationTokenFilterBean() {
+        return new JwtAuthenticationTokenFilter();
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // 由于使用的是JWT，我们这里不需要csrf
@@ -27,11 +33,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.authorizeRequests()
-                .antMatchers("/", "/login", "/main", "/**/*.css", "/**/*.js", "/image/**").permitAll()
+                .antMatchers("/", "/login", "/main", "/user/login",
+                        "/**/*.css", "/**/*.js", "/image/**").permitAll()
                 .anyRequest().authenticated();
 
         // 添加JWT filter
-        http.addFilterBefore(new JwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
 
         // 禁用缓存
         http.headers().cacheControl();

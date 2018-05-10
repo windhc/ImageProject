@@ -21,12 +21,12 @@ public class AtlasController {
     @Autowired
     private AtlasService atlasService;
 
-    @GetMapping(value = "/delete/{id}")
+    @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") long id){
         atlasService.delete(id);
     }
 
-    @GetMapping(value = "/detail/{id}")
+    @GetMapping(value = "/{id}")
     public Atlas detail(@PathVariable("id") long id){
         return atlasService.findOne(id);
     }
@@ -36,12 +36,12 @@ public class AtlasController {
         return atlasService.atlasTag(atlasId);
     }
 
-    @PostMapping(value = "/save")
+    @PostMapping(value = "")
     public void save(@RequestBody Map<String,Object> params){
         atlasService.saveForForm(params);
     }
 
-    @GetMapping(value = "/atlasPage")
+    @GetMapping(value = "")
     public PageInfo<Atlas> getAllPicture(@RequestParam() Map pageParams) {
 //        PageRequest pageRequest = CommonUtil.buildPageRequest(pageParams);
 //        String filterValue = (String) pageParams.get("filter[atlas]");

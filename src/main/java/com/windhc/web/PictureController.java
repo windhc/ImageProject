@@ -24,17 +24,17 @@ public class PictureController {
     @Autowired
     private TagService tagService;
 
-    @GetMapping(value = "/byatlasid/{id}")
-    public List<Picture> getPictureByAtlasId(@PathVariable("id") long id) {
-        return pictureService.findPicturesByAtlasId(id);
+    @GetMapping(value = "/atlas/{atlasId}")
+    public List<Picture> getPictureByAtlasId(@PathVariable long atlasId) {
+        return pictureService.findPicturesByAtlasId(atlasId);
     }
 
-    @GetMapping(value = "/picturePage")
+    @GetMapping(value = "")
     public PageInfo<Picture> getAllPicture(PageRequest pageRequest) {
         return pictureService.findAll(pageRequest);
     }
 
-    @DeleteMapping(value = "/delete/{id}")
+    @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") long id){
         pictureService.delete(id);
     }

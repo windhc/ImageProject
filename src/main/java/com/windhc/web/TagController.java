@@ -18,7 +18,7 @@ public class TagController {
     @Autowired
     private TagService tagService;
 
-    @GetMapping(value = "/listTagAll")
+    @GetMapping(value = "")
     public List<Tag> getPicTypeAll(){
         return tagService.findAll();
     }
@@ -33,18 +33,18 @@ public class TagController {
         return tagService.findOne(id);
     }
 
-    @PostMapping(value = "/save")
+    @PostMapping(value = "")
     public void save(@RequestBody Tag tag) {
         tagService.save(tag);
     }
 
-    @DeleteMapping(value = "/delete/{id}")
+    @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") long id) {
         tagService.delete(id);
     }
 
-    @PostMapping(value = "/update")
+    @PutMapping(value = "")
     public void update(@RequestBody Tag tag) {
-        tagService.save(tag);
+        tagService.update(tag);
     }
 }

@@ -1,14 +1,12 @@
 package com.windhc.service;
 
 import com.windhc.config.exception.ServiceException;
-import com.windhc.utils.UpYunUtil;
-import main.java.com.UpYun;
-import org.apache.commons.io.FileUtils;
+import com.windhc.config.upyun.UpYunService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
-import java.io.File;
 import java.util.*;
 
 /**
@@ -17,6 +15,9 @@ import java.util.*;
  */
 @Service
 public class FileStoreService {
+
+    @Autowired
+    private UpYunService upYunService;
 
     public Map<String, Object> saveFile(MultipartRequest request) {
         String uploadPath = this.getClass().getClassLoader().getResource("static/upload/").getPath();
@@ -27,23 +28,15 @@ public class FileStoreService {
             String name = fileNames.next();
             MultipartFile file = request.getFile(name);
             String saveFilename = System.currentTimeMillis()+"-"+file.getOriginalFilename();
-            File targetFile = new File(uploadPath + saveFilename);
-            // 得到UpYun实例
-            UpYun upYun = UpYunUtil.getUpYun();
-            try{
-                file.transferTo(targetFile);
-                upYun .setContentMD5(UpYun.md5(targetFile));
-                boolean result = upYun.writeFile(UpYunUtil.getUpYunFileSavePath(upYun) + saveFilename, targetFile, true);
-                if(!result){
-                    throw new ServiceException("文件写入云端出错");
-                }
-                FileUtils.deleteQuietly(targetFile);
-            }catch (Exception e){
-                throw new ServiceException("上传文件出错");
+
+            boolean result = upYunService.upload(file, upYunService.getUpYunFileSavePath() + saveFilename);
+            if(!result){
+                throw new ServiceException("文件写入云端出错");
             }
+
             Map<String,Object> fileValue = new HashMap<>();
-            fileValue.put("url", UpYunUtil.getUpYunFileFullPath(upYun, saveFilename));
-            fileValue.put("thumbnailUrl", UpYunUtil.getUpYunThumbnailsPath(upYun, saveFilename));
+            fileValue.put("url", upYunService.getUpYunFileFullPath(saveFilename));
+            fileValue.put("thumbnailUrl", upYunService.getUpYunThumbnailsPath(saveFilename));
             fileValue.put("name", file.getOriginalFilename());
             fileValue.put("type", file.getContentType());
             fileValue.put("size", file.getSize());

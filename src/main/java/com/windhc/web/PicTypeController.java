@@ -12,28 +12,28 @@ import java.util.List;
  * @date 2015/9/26
  */
 @RestController
-@RequestMapping(value = "/pictype")
+@RequestMapping(value = "/pictureType")
 public class PicTypeController {
 
     @Autowired
     private PicTypeService picTypeService;
 
-    @GetMapping(value = "/list")
+    @GetMapping(value = "")
     public List<PictureType> getAll(){
         return picTypeService.getAll();
     }
 
-    @PostMapping(value = "/save")
+    @PostMapping(value = "")
     public void save(@RequestBody PictureType pictureType) {
         picTypeService.save(pictureType);
     }
 
-    @PostMapping(value = "/update")
+    @PutMapping(value = "")
     public void update(@RequestBody PictureType pictureType) {
         picTypeService.save(pictureType);
     }
 
-    @DeleteMapping(value = "/delete/{id}")
+    @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") long id) {
         picTypeService.delete(id);
     }

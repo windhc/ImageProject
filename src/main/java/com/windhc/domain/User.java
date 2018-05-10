@@ -33,18 +33,16 @@ public class User implements UserDetails {
      */
     private Long lastLogin;
 
-    private Integer loginCounts;
+    /**
+     * 最后修改密码时间
+     */
+    private Long lastResetPassword;
 
     private Long createdAt;
 
     private Long updatedAt;
 
     private Boolean enabled;
-
-    /**
-     * 最后修改密码时间
-     */
-    private Long lastResetPassword;
 
     private Role role;
 
@@ -129,14 +127,6 @@ public class User implements UserDetails {
 
     public void setLastLogin(Long lastLogin) {
         this.lastLogin = lastLogin;
-    }
-
-    public Integer getLoginCounts() {
-        return loginCounts;
-    }
-
-    public void setLoginCounts(Integer loginCounts) {
-        this.loginCounts = loginCounts;
     }
 
     public Long getCreatedAt() {
