@@ -1,24 +1,11 @@
-buildscript {
-    ext {
-        springBootVersion = '2.0.2.RELEASE'
-    }
-    repositories {
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
+plugins {
+    id "java"
+    id "org.springframework.boot" version "2.1.1.RELEASE"
+    id "io.spring.dependency-management" version "1.0.6.RELEASE"
 }
 
-apply plugin: 'java'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
-apply plugin: 'idea'
-
-jar {
-    baseName = 'ImageProject'
-    version = '1.0.0'
-}
+group = 'com.windhc'
+version = '1.0.0'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -41,6 +28,6 @@ dependencies {
     compile("net.coobird:thumbnailator:[0.4, 0.5)")
     compile("com.upyun:java-sdk:3.20")
 
-    runtime("mysql:mysql-connector-java")
+    runtime("mysql:mysql-connector-java:8.0.13")
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }

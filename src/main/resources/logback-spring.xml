@@ -8,7 +8,7 @@
     <appender name="dailyRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rollover -->
-            <FileNamePattern>${LOG_PATH}/log-app/clothing-mall/%d{yyyy-MM-dd}.log</FileNamePattern>
+            <FileNamePattern>${LOG_PATH}/log-app/image-project/%d{yyyy-MM-dd}.log</FileNamePattern>
             <!-- keep 60 days' worth of history -->
             <maxHistory>60</maxHistory>
         </rollingPolicy>
